@@ -19,4 +19,5 @@ Route::get('/', function () {
 
 Route::get('/partner/category',[\App\Http\Controllers\CategoryController::class,'index']);
 Route::post('/partner/category',[\App\Http\Controllers\CategoryController::class,'store']);
-
+Route::get('partner/edit/{id}',[\App\Http\Controllers\CategoryController::class,'edit']);
+Route::post('partner/update',[\App\Http\Controllers\CategoryController::class,'update']);

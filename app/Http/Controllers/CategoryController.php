@@ -6,6 +6,9 @@ use Illuminate\Support\Str;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\Partner\CreateCategoryRequest;
+use Illuminate\Support\ServiceProvider;
+use Brian2694\Toastr\Facades\Toastr;
+
 
 class CategoryController extends Controller
 {
@@ -79,9 +82,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+
+        return view('Partner.Pages.Category.update');
     }
 
     /**

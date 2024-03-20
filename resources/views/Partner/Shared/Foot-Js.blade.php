@@ -1,4 +1,9 @@
-script      <!-- Optional JavaScript -->
+     @jquery
+     @toastr_js
+     @toastr_render
+
+
+
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="/assets_partner/js/jquery.min.js"></script>
        <!-- Rtl and Darkmode -->
@@ -49,3 +54,11 @@ script      <!-- Optional JavaScript -->
       <script src="/assets_partner/js/custom.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js" integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="toastr.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
+
+
+
