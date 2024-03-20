@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\Partner\CreateCategoryRequest;
+use App\Http\Requests\Partner\UpdateCategoryRequest;
 use Illuminate\Support\ServiceProvider;
 use Brian2694\Toastr\Facades\Toastr;
 
@@ -61,7 +62,7 @@ class CategoryController extends Controller
         $data['slug'] = Str::slug($request->name);
 
         Category::create($data);
-
+        toastr()->success("Đã thêm thành công");
         return $this->index();
     }
 
@@ -84,8 +85,18 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        $data = Category::find($id);
 
-        return view('Partner.Pages.Category.update');
+        if($data) {
+            toastr()->success("chỉnh sửa loại sản phẩm");
+            return view('Partner.Pages.Category.update',compact('data'));
+        } else {
+            toastr()->error("Mã sản phẩm không tồn tại, không thể update");
+            // return redirect()->back(); // để lùi về
+            // return $this->index(); // đỡ khỏi compact lại
+            return redirect('/partner/category');
+        }
+
     }
 
     /**
@@ -95,9 +106,17 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request)
     {
-        //
+        $index = Category::find($request->id);
+
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name);
+
+        $index->update($data);
+
+        toastr()->success("Đã cập nhật thành công");
+        return redirect('/partner/category');
     }
 
     /**
@@ -106,8 +125,16 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $index = Category::find($id);
+
+        if($index) {
+            $index->delete();
+            toastr()->success("Đã xoá sản phẩm thành công");
+        } else {
+            toastr()->error("Mã sản phẩm không tồn tại, không thể delete");
+        }
+        return redirect('/partner/category');
     }
 }

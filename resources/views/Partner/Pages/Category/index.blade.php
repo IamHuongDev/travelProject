@@ -82,6 +82,10 @@
                                 </tr>
                             </thead>
                             <!-- Table body -->
+                            @php
+                                $arr = ['Nhà hàng','Khách sạn','Địa điểm','shopping'];
+                                $arrCol = ['','text-primary','text-danger','text-success','text-warning'];
+                            @endphp
                             <tbody>
 
                                 @foreach ($data as $key => $value)
@@ -89,13 +93,15 @@
                                         <td contenteditable="true">{{ $key + 1 }}</td>
                                         <td contenteditable="true">{{ $value->name }}</td>
                                         <td contenteditable="true">{{ $value->slug }}</td>
-                                        <td contenteditable="true">{{ $value->type }}</td>
-                                        <td contenteditable="true">
+                                        <td contenteditable="true" class="{{$arrCol[$value->type]}}">
+                                            {{$arr[$value->type]}}
+                                        </td>
+                                        <td contenteditable="true" >
                                             {{ $value->status == 0 ? 'Dừng hoạt động' : 'Hoạt động' }}</td>
                                         <td>
-                                            <a href="/partner/edit/{{ $value->id }}"
+                                            <a href="/partner/category/edit/{{ $value->id }}"
                                                 class="btn btn-success btn-rounded btn-sm">Sửa</a>
-                                            <a class="btn btn-danger btn-rounded btn-sm">Xóa</a>
+                                            <a href="/partner/category/delete/{{ $value->id }}" class="btn btn-danger btn-rounded btn-sm">Xóa</a>
                                         </td>
                                     </tr>
                                 @endforeach

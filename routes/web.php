@@ -17,7 +17,14 @@ Route::get('/', function () {
     return view('Partner.Master');
 });
 
-Route::get('/partner/category',[\App\Http\Controllers\CategoryController::class,'index']);
-Route::post('/partner/category',[\App\Http\Controllers\CategoryController::class,'store']);
-Route::get('partner/edit/{id}',[\App\Http\Controllers\CategoryController::class,'edit']);
-Route::post('partner/update',[\App\Http\Controllers\CategoryController::class,'update']);
+Route::group(['prefix' => '/partner'], function () {
+    Route::group(['prefix' => '/category'], function () {
+        Route::get('/',[\App\Http\Controllers\CategoryController::class,'index']);
+        Route::post('/',[\App\Http\Controllers\CategoryController::class,'store']);
+        Route::get('/edit/{id}',[\App\Http\Controllers\CategoryController::class,'edit']);
+        Route::post('/update',[\App\Http\Controllers\CategoryController::class,'update']);
+        Route::get('/delete/{id}',[\App\Http\Controllers\CategoryController::class,'destroy']);
+
+    });
+});
+

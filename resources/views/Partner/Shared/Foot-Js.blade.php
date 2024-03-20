@@ -59,6 +59,14 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 
+      <script>
+        @if(count($errors) > 0)
+            @foreach ($errors->all() as $error)
+                toastr.error("{{$error}}");
+            @endforeach
+        @endif
+    </script>
+
 
 
 
