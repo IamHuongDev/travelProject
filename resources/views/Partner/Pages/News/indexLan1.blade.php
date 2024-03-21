@@ -10,7 +10,7 @@
                 </div>
                 <div class="iq-card-body">
                     <!-- Form -->
-                    <form class="form-horizontal" method="POST" action="/partner/new">
+                    <form class="form-horizontal" method="POST" action="/partner/new" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label class="col-sm-3 col-form-label">Tiêu đề</label>

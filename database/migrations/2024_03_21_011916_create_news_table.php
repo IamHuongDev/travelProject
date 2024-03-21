@@ -19,7 +19,7 @@ class CreateNewsTable extends Migration
             $table->string('slug');
             $table->string('hinhAnh');
             $table->longText('tomTat');
-            $table->longText('noDung');
+            $table->longText('noiDung');
             $table->integer('chuyenMuc')->comment('1: Địa điểm, 2: Giới thiệu, 3: Quảng cáo');
             $table->integer('is_open');
             $table->timestamps();

@@ -28,6 +28,12 @@ Route::group(['prefix' => '/partner'], function () {
     Route::group(['prefix' => '/new'], function () {
         Route::get('/',[\App\Http\Controllers\NewsController::class,'index']);
         Route::post('/',[\App\Http\Controllers\NewsController::class,'store']);
+
+        Route::get('/ajax',[\App\Http\Controllers\NewsController::class,'indexAjax']);
+        Route::post('/ajax',[\App\Http\Controllers\NewsController::class,'storeAjax']);
+        Route::get('/getData',[\App\Http\Controllers\NewsController::class,'showAjax']);
+
+
         Route::get('/edit/{id}',[\App\Http\Controllers\NewsController::class,'edit']);
         Route::post('/update',[\App\Http\Controllers\NewsController::class,'update']);
         Route::get('/delete/{id}',[\App\Http\Controllers\NewsController::class,'destroy']);

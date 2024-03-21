@@ -4,6 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Http\Requests\Partner\CreateNewsRequest;
+// use App\Http\Requests\Partner\UpdateCategoryRequest;
+use Illuminate\Support\ServiceProvider;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\UploadedFile;
+use Carbon\Carbon;
+
+
 
 class NewsController extends Controller
 {
@@ -14,9 +23,21 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('Partner.Pages.News.index');
+        // $data = News::all();
+
+        return view('Partner.Pages.News.indexLan1');
     }
 
+
+    public function indexAjax(){
+        return view('Partner.Pages.News.indexLan2');
+    }
+
+    public function showAjax(){
+        $data = News::all();
+
+        return response()->json(['data' => $data]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -33,10 +54,37 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateNewsRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->tieuDe);
+
+        if ($request->hasFile('hinhAnh')) {
+            $file = $request->file('hinhAnh');
+
+            $duoiFile = $file->getClientOriginalExtension();
+
+            $current_date_time = time(); // Sử dụng time() thay vì timestamp
+
+            $tenFile = $data['slug'] . '-' . $current_date_time . '.' . $duoiFile; // Sửa từ data['slug'] thành $data['slug']
+
+            $file->move('upload', $tenFile);
+
+            $data['hinhAnh'] = '/upload/' . $tenFile;
+
+            News::create($data);
+
+            toastr()->success('Đã thêm mới thành công');
+
+            return redirect('/partner/new');
+
+        } else {
+            toastr()->error('Yêu cầu upload file');
+            return redirect('/partner/new');
+        }
     }
+
+
 
     /**
      * Display the specified resource.
