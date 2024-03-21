@@ -24,7 +24,13 @@ Route::group(['prefix' => '/partner'], function () {
         Route::get('/edit/{id}',[\App\Http\Controllers\CategoryController::class,'edit']);
         Route::post('/update',[\App\Http\Controllers\CategoryController::class,'update']);
         Route::get('/delete/{id}',[\App\Http\Controllers\CategoryController::class,'destroy']);
-
+    });
+    Route::group(['prefix' => '/new'], function () {
+        Route::get('/',[\App\Http\Controllers\NewsController::class,'index']);
+        Route::post('/',[\App\Http\Controllers\NewsController::class,'store']);
+        Route::get('/edit/{id}',[\App\Http\Controllers\NewsController::class,'edit']);
+        Route::post('/update',[\App\Http\Controllers\NewsController::class,'update']);
+        Route::get('/delete/{id}',[\App\Http\Controllers\NewsController::class,'destroy']);
     });
 });
 
