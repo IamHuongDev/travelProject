@@ -30,7 +30,8 @@ class NewsController extends Controller
 
 
     public function indexAjax(){
-        return view('Partner.Pages.News.indexLan2');
+        // return view('Partner.Pages.News.indexLan2');
+        return view('Partner.Pages.News.index');
     }
 
     public function showAjax(){
@@ -85,6 +86,19 @@ class NewsController extends Controller
     }
 
 
+    public function storeAjax(CreateNewsRequest $request){
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->tieuDe);
+
+        $data['hinhAnh'] = '123456';
+
+        News::create($data);
+
+        return response()->json(['trangThai' => true]);
+
+
+    }
+
 
     /**
      * Display the specified resource.
@@ -126,8 +140,31 @@ class NewsController extends Controller
      * @param  \App\Models\News  $news
      * @return \Illuminate\Http\Response
      */
-    public function destroy(News $news)
+    public function destroy($id)
     {
-        //
+        $new = News::find($id);
+
+        if($new){
+            toastr()->success("Đã xoá tin tức thành công");
+            $new->delete();
+        }else {
+            toatr()->error("Tin tức không tồn tại");
+        }
+
+        return redirect('/parnert/new/ajax');
     }
+
+    public function destroyAjax($id)
+    {
+        $new = News::find($id);
+
+        if($new){
+            $new->delete();
+
+            return response()->json(['trangThai' => true]);
+        } else {
+            return response()->json(['trangThai' => false]);
+        }
+    }
+
 }

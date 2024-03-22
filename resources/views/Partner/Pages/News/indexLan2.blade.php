@@ -10,27 +10,26 @@
                 </div>
                 <div class="iq-card-body">
                     <!-- Form -->
-                    <form class="form-horizontal" method="POST" action="/partner/new">
-                        @csrf
+                    <form class="form-horizontal" id="formAddNews">
                         <div class="form-group">
                             <label>Tiêu đề</label>
-                            <input type="text" name="tieuDe" class="form-control" placeholder="Nhập tiêu đề">
+                            <input type="text" id="tieuDe" name="tieuDe" class="form-control" placeholder="Nhập tiêu đề">
                         </div>
                         <div class="form-group">
                             <label>Slug</label>
-                            <input type="text" class="form-control" disabled="" value="" name="slug">
+                            <input type="text" class="form-control" disabled="" value="" id="slug" name="slug">
                         </div>
                         <div class="form-group">
                             <label>Tóm tắt</label>
-                            <textarea class="form-control" rows="3" name="tomTat"></textarea>
+                            <textarea class="form-control" rows="3" id="tomTat" name="tomTat"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Nội dung</label>
-                            <textarea class="form-control" rows="4" name="noiDung"></textarea>
+                            <textarea class="form-control" rows="4" id="noiDung" name="noiDung"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Chuyên mục</label>
-                            <select class="form-control" name="chuyenMuc">
+                            <select class="form-control" id="chuyenMuc" name="chuyenMuc">
                                 <option selected disabled>Vui lòng chọn chuyên mục</option>
                                 <option value=1>Địa điểm</option>
                                 <option value=2>Giới thiệu</option>
@@ -39,7 +38,7 @@
                         </div>
                         <div class="form-group">
                             <label>Is open</label>
-                            <select class="form-control" name="is_open">
+                            <select class="form-control" id="is_open" name="is_open">
                                 <option selected disabled>Vui lòng chọn tình trạng</option>
                                 <option value=1>Hoạt động</option>
                                 <option value=0>Dừng hoạt động</option>
@@ -51,7 +50,7 @@
                         </div>
                         <!-- Add New button -->
                         <div class="form-group">
-                            <button type="submit" class="btn btn-sm btn-success btn-block"><i class="ri-add-fill"></i><span
+                            <button type="button" id="addNews" class="btn btn-sm btn-success btn-block"><i class="ri-add-fill"></i><span
                                     class="pl-1">Thêm mới</span></button>
                         </div>
 
@@ -146,8 +145,8 @@
                 text += '<td contenteditable="true">' + textChuyenMuc + '</td>'
                 text += '<td contenteditable="true">' + textOpen + '</td>'
                 text += '<td>'
-                text += '<a href="" class="btn btn-success btn-rounded btn-sm">Sửa</a>'
-                text += '<a href="" class="btn btn-danger btn-rounded btn-sm">Xóa</a>'
+                text += '<a class="btn btn-success btn-rounded btn-sm">Sửa</a>'
+                text += '<a class="btn btn-danger btn-rounded btn-sm delete" data-id="'+ x.id +'">Xóa</a>'
                 text += '</td>'
                 text += '</tr>'
 
@@ -169,6 +168,62 @@
             }
 
             getData();
+
+            $('body').on('click', '.delete', function(){
+                var getId = $(this).data('id');
+                console.log( "cần xoá id =" + getId );
+                // gửi dữ liệu là id cần xoá lên server
+                $.ajax({
+                    url : '/partner/new/deleteAjax/' + getId ,
+                    type : 'get', // post & get
+                    success : function($res){
+                        // console.log( $res );
+                        if($res.trangThai == true){
+                            toastr.success('Đã xoá tin tức thành công');
+                            getData();
+                        } else {
+                            toastr.error('Tin tức không tồn tại');
+                        }
+                    }, // trạng thái trả về khi thành công
+                });
+            });
+
+            $("#addNews").click(function(e){
+                // e.preventDefault();
+                var tieuDe = $("#tieuDe").val();
+                var chuyenMuc = $("#chuyenMuc").val();
+                var is_open = $("#is_open").val();
+                var tomTat = $("#tomTat").val();
+                var noiDung = $("#noiDung").val();
+
+                var tinTuc = {
+                    'tieuDe' : tieuDe,
+                    'chuyenMuc' : chuyenMuc,
+                    'is_open' : is_open,
+                    'tomTat' : tomTat,
+                    'noiDung' : noiDung,
+                };
+                $.ajax({
+                    // url : {{Route('storeNews')}} ,
+                    url : '/partner/new/ajax' ,
+                    type : 'post',
+                    data : tinTuc,
+                    success : function($res){
+                        if($res.trangThai == true){
+                            toastr.success('Đã thêm tin tức thành công');
+                            getData();
+                            // reset lại toàn bộ dữ liệu ở input
+                            $('#formAddNews').trigger("reset");
+                        }
+                    },
+                    error : function($err){
+                        var listError = $err.responseJSON.errors ;
+                        $.each(listError, function(key, value){
+                            toastr.error(value[0]);
+                        });
+                    },
+                });
+            });
 
 
             // function loadAllData(arr){
