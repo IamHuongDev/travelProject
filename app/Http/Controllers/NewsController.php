@@ -90,12 +90,9 @@ class NewsController extends Controller
         $data = $request->all();
         $data['slug'] = Str::slug($request->tieuDe);
 
-        $data['hinhAnh'] = '123456';
-
         News::create($data);
 
         return response()->json(['trangThai' => true]);
-
 
     }
 

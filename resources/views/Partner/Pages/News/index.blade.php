@@ -13,11 +13,13 @@
                     <form class="form-horizontal" id="formAddNews">
                         <div class="form-group">
                             <label>Tiêu đề</label>
-                            <input type="text" id="tieuDe" name="tieuDe" class="form-control" placeholder="Nhập tiêu đề">
+                            <input type="text" id="tieuDe" name="tieuDe" class="form-control"
+                                placeholder="Nhập tiêu đề">
                         </div>
                         <div class="form-group">
                             <label>Slug</label>
-                            <input type="text" class="form-control" disabled="" value="" id="slug" name="slug">
+                            <input type="text" class="form-control" disabled="" value="" id="slug"
+                                name="slug">
                         </div>
                         <div class="form-group">
                             <label>Tóm tắt</label>
@@ -44,14 +46,28 @@
                                 <option value=0>Dừng hoạt động</option>
                             </select>
                         </div>
+
                         <div class="form-group">
-                            <label>Hình ảnh</label>
-                            <input type="file" class="form-control-file" name="hinhAnh">
+                            <label for="thumbnail">Hình ảnh</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input id="thumbnail" type="text" class="form-control" name="hinhAnh">
+                                    <span class="input-group-append">
+                                        <a data-input="thumbnail" data-preview="holder" class=" btn btn-primary text-white uploadimage" type="button">Chọn</a>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="image-preview mt-2">
+                                <img id="holder" class="img-fluid" style="max-height: 100px;">
+
+                            </div>
                         </div>
+
                         <!-- Add New button -->
                         <div class="form-group">
-                            <button type="button" id="addNews" class="btn btn-sm btn-success btn-block"><i class="ri-add-fill"></i><span
-                                    class="pl-1">Thêm mới</span></button>
+                            <button type="button" id="addNews" class="btn btn-sm btn-success btn-block"><i
+                                    class="ri-add-fill"></i><span class="pl-1">Thêm mới</span></button>
                         </div>
 
                     </form>
@@ -139,7 +155,7 @@
                 text += '<td contenteditable="true">' + textOpen + '</td>'
                 text += '<td>'
                 text += '<a class="btn btn-success btn-rounded btn-sm">Sửa</a>'
-                text += '<a class="btn btn-danger btn-rounded btn-sm delete" data-id="'+ x.id +'">Xóa</a>'
+                text += '<a class="btn btn-danger btn-rounded btn-sm delete" data-id="' + x.id + '">Xóa</a>'
                 text += '</td>'
                 text += '</tr>'
 
@@ -162,14 +178,14 @@
 
             getData();
 
-            $('body').on('click', '.delete', function(){
+            $('body').on('click', '.delete', function() {
                 var getId = $(this).data('id');
-                console.log( "cần xoá id =" + getId );
+                console.log("cần xoá id =" + getId);
                 $.ajax({
-                    url : '/partner/new/deleteAjax/' + getId ,
-                    type : 'get',
-                    success : function($res){
-                        if($res.trangThai == true){
+                    url: '/partner/new/deleteAjax/' + getId,
+                    type: 'get',
+                    success: function($res) {
+                        if ($res.trangThai == true) {
                             toastr.success('Đã xoá tin tức thành công');
                             getData();
                         } else {
@@ -179,36 +195,39 @@
                 });
             });
 
-            $("#addNews").click(function(e){
+            $("#addNews").click(function(e) {
                 e.preventDefault();
                 var tieuDe = $("#tieuDe").val();
                 var chuyenMuc = $("#chuyenMuc").val();
                 var is_open = $("#is_open").val();
                 var tomTat = $("#tomTat").val();
                 var noiDung = $("#noiDung").val();
+                var hinhAnh = $("#thumbnail").val();
 
                 var tinTuc = {
-                    'tieuDe' : tieuDe,
-                    'chuyenMuc' : chuyenMuc,
-                    'is_open' : is_open,
-                    'tomTat' : tomTat,
-                    'noiDung' : noiDung,
+                    'tieuDe': tieuDe,
+                    'chuyenMuc': chuyenMuc,
+                    'is_open': is_open,
+                    'tomTat': tomTat,
+                    'noiDung': noiDung,
+                    'hinhAnh' : hinhAnh,
                 };
                 $.ajax({
-                    url : '/partner/new/ajax' ,
-                    type : 'post',
-                    data : tinTuc,
-                    success : function($res){
-                        if($res.trangThai == true){
+                    url: '/partner/new/ajax',
+                    type: 'post',
+                    data: tinTuc,
+                    success: function($res) {
+                        if ($res.trangThai == true) {
                             toastr.success('Đã thêm tin tức thành công');
                             getData();
 
                             $('#formAddNews').trigger("reset");
+                            $('#holder').removeAttr('src');
                         }
                     },
-                    error : function($err){
-                        var listError = $err.responseJSON.errors ;
-                        $.each(listError, function(key, value){
+                    error: function($err) {
+                        var listError = $err.responseJSON.errors;
+                        $.each(listError, function(key, value) {
                             toastr.error(value[0]);
                         });
                     },
@@ -216,5 +235,14 @@
             });
 
         });
+    </script>
+    <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+    <script>
+        $('.uploadimage').filemanager('image');
+    </script>
+    <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('noiDung');
+        CKEDITOR.replace('tomTat');
     </script>
 @endsection

@@ -25,7 +25,7 @@ class CreateNewsRequest extends FormRequest
     {
         return [
             'tieuDe'            => 'required|max:100',
-            // 'hinhAnh'           => 'required|image',
+            'hinhAnh'           => 'required',
             'tomTat'            => 'required:max:1000',
             'noiDung'           => 'required',
             'chuyenMuc'         => 'required|min:1|max:3',
