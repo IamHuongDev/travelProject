@@ -31,9 +31,17 @@ Route::group(['prefix' => '/partner'], function () {
 
         Route::get('/ajax',[\App\Http\Controllers\NewsController::class,'indexAjax']);
         Route::post('/ajax',[\App\Http\Controllers\NewsController::class,'storeAjax'])->name('storeNews');
+
+        Route::post('/find/title',[\App\Http\Controllers\NewsController::class,'findTitle']);
+
+
         Route::get('/getData',[\App\Http\Controllers\NewsController::class,'showAjax']);
         Route::get('/delete/{id}',[\App\Http\Controllers\NewsController::class,'destroy']);
         Route::get('/deleteAjax/{id}',[\App\Http\Controllers\NewsController::class,'destroyAjax']);
+        Route::get('/editAjax/{id}',[\App\Http\Controllers\NewsController::class,'editAjax']);
+        Route::post('/updateAjax',[\App\Http\Controllers\NewsController::class,'updateAjax']);
+
+
 
 
         Route::get('/edit/{id}',[\App\Http\Controllers\NewsController::class,'edit']);

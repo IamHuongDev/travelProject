@@ -6,7 +6,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Requests\Partner\CreateNewsRequest;
-// use App\Http\Requests\Partner\UpdateCategoryRequest;
+use App\Http\Requests\Partner\UpdateNewsRequest;
 use Illuminate\Support\ServiceProvider;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\UploadedFile;
@@ -97,6 +97,20 @@ class NewsController extends Controller
     }
 
 
+    public function findTitle(Request $request)
+    {
+        $tieuDe = $request->tieuDe;
+        $slug = Str::slug($tieuDe);
+
+        $data =  News::where('slug', $slug)->first();
+
+        if($data){
+            return response()->json(['status' => true]);
+        } else {
+            return response()->json(['status' => false]);
+        }
+    }
+
     /**
      * Display the specified resource.
      *
@@ -119,6 +133,19 @@ class NewsController extends Controller
         //
     }
 
+
+    public function editAjax($id)
+    {
+        $data = News::find($id);
+
+        if($data){
+            return response()->json(['trangThai' => true, 'data' => $data]);
+        }else{
+            return response()->json(['trangThai' => false]);
+        }
+
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -131,6 +158,18 @@ class NewsController extends Controller
         //
     }
 
+
+    public function updateAjax(UpdateNewsRequest  $request)
+    {
+        $data = $request->all(); // data những gì người ta gửi lên
+        $news = News::find($request->id); // news là tin tưc dựa vào id mà đã gửi lên
+
+        $news->update($data);
+
+        return response()->json(['trangThai' => true]);
+        // dd($request->toArray() );
+
+    }
     /**
      * Remove the specified resource from storage.
      *
