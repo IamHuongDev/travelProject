@@ -266,6 +266,39 @@
                 return text;
             }
 
+            function loadData_2(x) {
+                if(x.is_open == 1) {
+                    var textOpen = '<span class="bg-primary btn-rounded btn-sm changeOpen" data-id="' + x.id + '">Hiển Thị</span>'
+                } else {
+                    var textOpen = '<span class="bg-danger btn-rounded btn-sm changeOpen" data-id="' + x.id + '">Tắt hiển thị</span>'
+                }
+
+                if (x.chuyenMuc == 1) {
+                    textChuyenMuc = 'Địa điểm';
+                } else if (x.chuyenMuc == 2) {
+                    textChuyenMuc = 'Giới thiệu';
+                } else {
+                    textChuyenMuc = 'Quảng cáo';
+                }
+                var text = '';
+
+                text += '<td >' + x.id + '</td>'
+                text += '<td >' + x.tieuDe + '</td>'
+                text += '<td ><img src="' + x.hinhAnh + ' " style="width:100px"></td>'
+                text += '<td >' + x.tomTat + '</td>'
+                text += '<td >' + textChuyenMuc + '</td>'
+                text += '<td >' + textOpen + '</td>'
+                text += '<td>'
+                text +=
+                    '<a class="btn btn-success btn-rounded btn-sm edit mx-2"" data-toggle="modal" data-target="#editNewsModal" data-id="' +
+                    x.id + '">Sửa</a>'
+                text += '<a class="btn btn-danger btn-rounded btn-sm delete" data-id="' + x.id + '">Xóa</a>'
+                text += '</td>'
+
+
+                return text;
+            }
+
             function getData() {
                 $.ajax({
                     url: '/partner/new/getData',
@@ -329,7 +362,10 @@
 
             $('body').on('click', '.changeOpen', function() {
                 var getId = $(this).data('id');
-                console.log( 'đã click được ' + getId );
+                // console.log( 'đã click được ' + getId );
+                // row thể hiện dòng nào mình đang click
+                var $row = $(this).closest("tr");
+
                 $.ajax({
                     url: '/partner/new/changeOpen/' + getId,
                     type: 'get',
@@ -337,7 +373,8 @@
                         // console.log( $res );
                         if($res.trangThai ==  true) {
                             toastr.success('Đã thay đổi trạng thái thành công');
-                            getData();
+                            var text = loadData_2($res.tinTuc);
+                            $row.html(text);
                         }else{
                             toastr.error('Thay đổi trạng thái không thành công');
                         }

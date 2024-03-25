@@ -192,7 +192,7 @@ class NewsController extends Controller
 
             $news->save();
 
-            return response()->json(['trangThai' => true]);
+            return response()->json(['trangThai' => true, 'tinTuc' => $news]);
         } else {
             return response()->json(['trangThai' => false]);
         }
