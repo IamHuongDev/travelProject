@@ -170,6 +170,33 @@ class NewsController extends Controller
         // dd($request->toArray() );
 
     }
+
+
+    public function changeOpen($id)
+    {
+        $news = News::find($id);
+
+        if($news){
+            // cách 1
+            // if($news->is_open == 1){
+            //     $news->is_open = 0;
+            // } else {
+            //     $news->is_open = 1;
+            // }
+
+            // $news->save();
+
+
+            // cách 2
+            $news->is_open = !$news->is_open;
+
+            $news->save();
+
+            return response()->json(['trangThai' => true]);
+        } else {
+            return response()->json(['trangThai' => false]);
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *

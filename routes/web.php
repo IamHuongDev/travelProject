@@ -41,6 +41,8 @@ Route::group(['prefix' => '/partner'], function () {
         Route::get('/editAjax/{id}',[\App\Http\Controllers\NewsController::class,'editAjax']);
         Route::post('/updateAjax',[\App\Http\Controllers\NewsController::class,'updateAjax']);
 
+        Route::get('/changeOpen/{id}',[\App\Http\Controllers\NewsController::class,'changeOpen']);
+
 
 
 

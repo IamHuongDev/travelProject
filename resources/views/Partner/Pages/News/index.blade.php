@@ -30,14 +30,14 @@
 
 
                                 <tr>
-                                    <td contenteditable="true"></td>
-                                    {{-- <td contenteditable="true"></td> --}}
-                                    <td contenteditable="true"><img src=""></td>
-                                    <td contenteditable="true"></td>
-                                    {{-- <td contenteditable="true"></td> --}}
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
+                                    <td ></td>
+                                    {{-- <td ></td> --}}
+                                    <td ><img src=""></td>
+                                    <td ></td>
+                                    {{-- <td ></td> --}}
+                                    <td ></td>
+                                    <td ></td>
+                                    <td ></td>
                                     <td>
                                         <a href="/partner/category/edit/" class="btn btn-success btn-rounded btn-sm">Sửa</a>
                                         <a href="/partner/category/delete/"
@@ -232,7 +232,14 @@
             var arr = [];
 
             function loadData(x) {
-                var textOpen = x.is_open == 1 ? 'Hiển thị' : 'Tắt';
+                // var textOpen = x.is_open == 1 ? 'Hiển thị' : 'Tắt';
+
+                if(x.is_open == 1) {
+                    var textOpen = '<span class="bg-primary btn-rounded btn-sm changeOpen" data-id="' + x.id + '">Hiển Thị</span>'
+                } else {
+                    var textOpen = '<span class="bg-danger btn-rounded btn-sm changeOpen" data-id="' + x.id + '">Tắt hiển thị</span>'
+                }
+
                 if (x.chuyenMuc == 1) {
                     textChuyenMuc = 'Địa điểm';
                 } else if (x.chuyenMuc == 2) {
@@ -242,15 +249,15 @@
                 }
                 var text = '';
                 text += '<tr>'
-                text += '<td contenteditable="true">' + x.id + '</td>'
-                text += '<td contenteditable="true">' + x.tieuDe + '</td>'
-                text += '<td contenteditable="true"><img src="' + x.hinhAnh + ' " style="width:100px"></td>'
-                text += '<td contenteditable="true">' + x.tomTat + '</td>'
-                text += '<td contenteditable="true">' + textChuyenMuc + '</td>'
-                text += '<td contenteditable="true">' + textOpen + '</td>'
+                text += '<td >' + x.id + '</td>'
+                text += '<td >' + x.tieuDe + '</td>'
+                text += '<td ><img src="' + x.hinhAnh + ' " style="width:100px"></td>'
+                text += '<td >' + x.tomTat + '</td>'
+                text += '<td >' + textChuyenMuc + '</td>'
+                text += '<td >' + textOpen + '</td>'
                 text += '<td>'
                 text +=
-                    '<a class="btn btn-success btn-rounded btn-sm edit" data-toggle="modal" data-target="#editNewsModal" data-id="' +
+                    '<a class="btn btn-success btn-rounded btn-sm edit mx-2"" data-toggle="modal" data-target="#editNewsModal" data-id="' +
                     x.id + '">Sửa</a>'
                 text += '<a class="btn btn-danger btn-rounded btn-sm delete" data-id="' + x.id + '">Xóa</a>'
                 text += '</td>'
@@ -319,6 +326,25 @@
                     },
                 });
             });
+
+            $('body').on('click', '.changeOpen', function() {
+                var getId = $(this).data('id');
+                console.log( 'đã click được ' + getId );
+                $.ajax({
+                    url: '/partner/new/changeOpen/' + getId,
+                    type: 'get',
+                    success: function($res) {
+                        // console.log( $res );
+                        if($res.trangThai ==  true) {
+                            toastr.success('Đã thay đổi trạng thái thành công');
+                            getData();
+                        }else{
+                            toastr.error('Thay đổi trạng thái không thành công');
+                        }
+                    },
+                });
+            });
+
 
             $("#editNews").click(function(e) {
                 e.preventDefault(); // Ngăn chặn hành vi mặc định của nút
