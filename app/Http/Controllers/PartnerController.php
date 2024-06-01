@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Partner\CheckEmailRequest;
 use App\Http\Requests\Partner\LoginRequest;
+use App\Mail\RegisterMail;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,6 +13,7 @@ use Illuminate\Support\ServiceProvider;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 
 
@@ -55,6 +57,11 @@ class PartnerController extends Controller
         $data['password'] = bcrypt($request->password);
 
         Partner::create($data);
+
+        $dataMail['full_name'] = $firstname . ' ' . $lastname;
+
+        // for($i = 0; $i < 10; $i++)
+        Mail::to($request->email)->send(new RegisterMail('Mail thông báo đăng ký tài khoản thành công' . Carbon::now(), $dataMail));
 
         return response()->json(['status' => true]);
     }
