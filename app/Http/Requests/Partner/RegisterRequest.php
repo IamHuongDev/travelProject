@@ -30,6 +30,7 @@ class RegisterRequest extends FormRequest
             're_password' => 'required|min:8|max:30|same:password' ,
             'dob' => 'required|date' ,
             'phone' => 'required|digits:10' ,
+            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 
@@ -43,6 +44,7 @@ class RegisterRequest extends FormRequest
             'email'   => ':attribute phải là email',
             'date'  => ':attribute phải là kiểu ngày tháng năm',
             'unique'  => ':attribute đã tồn tại',
+            'captcha' => ':attribute yêu cầu phải chọn',
         ];
     }
 
@@ -55,6 +57,7 @@ class RegisterRequest extends FormRequest
             're_password' => 'Nhập lại mật khẩu' ,
             'dob' => 'Ngày sinh' ,
             'phone' => 'Số điện thoại' ,
+            'g-recaptcha-response' => 'Mã captcha'
         ];
     }
 }

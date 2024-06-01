@@ -23,6 +23,8 @@ Route::get('/partner/register',[\App\Http\Controllers\PartnerController::class,'
 Route::post('/partner/register',[\App\Http\Controllers\PartnerController::class,'Register']);
 Route::get('/partner/logout',[\App\Http\Controllers\PartnerController::class,'Logout']);
 
+Route::post('/partner/check-email',[\App\Http\Controllers\PartnerController::class,'checkEmail']);
+
 
 Route::group(['prefix' => '/partner'], function () {
     Route::group(['prefix' => '/category'], function () {

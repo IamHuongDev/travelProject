@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Partner\CheckEmailRequest;
 use App\Http\Requests\Partner\LoginRequest;
 use App\Models\Partner;
 use Illuminate\Http\Request;
@@ -82,6 +83,20 @@ class PartnerController extends Controller
         Auth::guard('partner')->logout();
 
         return redirect('/partner/login');
+    }
+
+    public function checkEmail(CheckEmailRequest $request)
+    {
+        $email = $request->email;
+
+        $findEmail = Partner::where('email', $email)->first();
+
+        if($findEmail){
+            return response()->json(['status' => true]);
+        } else {
+            return response()->json(['status' => false]);
+        }
+
     }
 
     /**
