@@ -17,6 +17,11 @@ Route::get('/', function () {
     return view('Partner.Master');
 });
 
+Route::get('/partner/login',[\App\Http\Controllers\PartnerController::class,'viewLogin']);
+Route::get('/partner/register',[\App\Http\Controllers\PartnerController::class,'viewRegister']);
+Route::post('/partner/register',[\App\Http\Controllers\PartnerController::class,'Register']);
+
+
 Route::group(['prefix' => '/partner'], function () {
     Route::group(['prefix' => '/category'], function () {
         Route::get('/',[\App\Http\Controllers\CategoryController::class,'index']);
