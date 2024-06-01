@@ -28,6 +28,7 @@
                 <a href="#menu-design" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-menu-3-line"></i><span>Menu Design</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                 <ul id="menu-design" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
                    <li><a href="/partner/category">Thêm danh mục</a></li>
+                   <li><a href="/partner/new/ajax">Thêm bài viết</a></li>
                    <li><a href="horizontal-top-menu.html"><i class="ri-text-spacing"></i>Horizontal Top Menu</a></li>
                    <li><a href="two-sidebar.html"><i class="ri-indent-decrease"></i>Two Sidebar</a></li>
                    <li><a href="vertical-top-menu.html"><i class="ri-line-height"></i>Vertical block menu</a></li>

@@ -266,7 +266,7 @@
                                     </div>
                                  </a>
                                  <div class="d-inline-block w-100 text-center p-3">
-                                    <a class="btn btn-primary dark-btn-primary" href="sign-in.html" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
+                                    <a class="btn btn-primary dark-btn-primary" href="/partner/logout" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
                                  </div>
                               </div>
                            </div>

@@ -18,8 +18,10 @@ Route::get('/', function () {
 });
 
 Route::get('/partner/login',[\App\Http\Controllers\PartnerController::class,'viewLogin']);
+Route::post('/partner/login',[\App\Http\Controllers\PartnerController::class,'Login']);
 Route::get('/partner/register',[\App\Http\Controllers\PartnerController::class,'viewRegister']);
 Route::post('/partner/register',[\App\Http\Controllers\PartnerController::class,'Register']);
+Route::get('/partner/logout',[\App\Http\Controllers\PartnerController::class,'Logout']);
 
 
 Route::group(['prefix' => '/partner'], function () {
