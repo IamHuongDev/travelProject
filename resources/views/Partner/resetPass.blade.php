@@ -35,12 +35,14 @@
     <form class="form-signin">
         <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt=""
             width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Reset password</h1>
 
-        <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
+        <input type="hidden" id="hash" value="{{ isset($hash) ? $hash : '' }}">
+
         <input type="password" id="password" class="form-control mt-3" placeholder="Password" required>
-        <div class="d-flex justify-content-between my-2"><a href="/partner/reset-password" class=""><small>Quên mật khẩu?</small></a> <a href="/partner/register" class=""><small>Tạo tài khoản</small></a></div>
-        <button class="btn btn-lg btn-primary btn-block mt-4" type="button" id="login">Sign in</button>
+        <input type="password" id="re_password" class="form-control mt-3" placeholder="Re-Password" required>
+
+        <button class="btn btn-lg btn-primary btn-block mt-4" type="button" id="resetPass">Reset password</button>
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -66,30 +68,26 @@
         @endif
 
         $(document).ready(function(e) {
-            $("#login").click(function(event) {
-                event.preventDefault(); // Prevent the form from submitting the default way
+            $("#resetPass").click(function(event) {
+                event.preventDefault();
                 console.log("Đã click được!!");
-                var email = $("#email").val();
-                var password = $("#password").val();
 
-                var login = {
-                    'email': email,
-                    'password': password,
-
+                var payload = {
+                    'hash': $("#hash").val(),
+                    'password': $("#password").val(),
+                    're_password': $("#re_password").val(),
                 };
 
                 $.ajax({
-                    url: '/partner/login',
+                    url: '/partner/reset/',
                     type: 'post',
-                    data: login,
+                    data: payload,
                     success: function($res) {
-                        if ($res.status == 1) {
-                            toastr.warning("Tài khoản chưa xác minh");
-                        } else if ($res.status == 2) {
-                            toastr.success("Đăng nhập thành công");
-                            location.href = "/partner"
+                        if ($res.status) {
+                            toastr.success("Thay đổi mật khẩu thành công");
+                            location.href = "/partner/login";
                         } else {
-                            toastr.error("Đăng nhập thất bại");
+                            toastr.error("Thay đổi mật khẩu thất bại");
                         }
                     },
                     error: function($err) {

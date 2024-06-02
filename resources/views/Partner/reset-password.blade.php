@@ -9,7 +9,7 @@
 
     <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>Reset Password</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
 
@@ -35,12 +35,11 @@
     <form class="form-signin">
         <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt=""
             width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Reset your password</h1>
 
         <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
-        <input type="password" id="password" class="form-control mt-3" placeholder="Password" required>
-        <div class="d-flex justify-content-between my-2"><a href="/partner/reset-password" class=""><small>Quên mật khẩu?</small></a> <a href="/partner/register" class=""><small>Tạo tài khoản</small></a></div>
-        <button class="btn btn-lg btn-primary btn-block mt-4" type="button" id="login">Sign in</button>
+
+        <button class="btn btn-lg btn-primary btn-block mt-4" type="button" id="resetpassword">Reset password</button>
     </form>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -66,38 +65,23 @@
         @endif
 
         $(document).ready(function(e) {
-            $("#login").click(function(event) {
-                event.preventDefault(); // Prevent the form from submitting the default way
+            $("#resetpassword").click(function(event) {
+                event.preventDefault();
                 console.log("Đã click được!!");
+
                 var email = $("#email").val();
-                var password = $("#password").val();
-
-                var login = {
-                    'email': email,
-                    'password': password,
-
-                };
 
                 $.ajax({
-                    url: '/partner/login',
-                    type: 'post',
-                    data: login,
+                    url: '/partner/reset-password/' + email,
+                    type: 'get',
                     success: function($res) {
-                        if ($res.status == 1) {
-                            toastr.warning("Tài khoản chưa xác minh");
-                        } else if ($res.status == 2) {
-                            toastr.success("Đăng nhập thành công");
-                            location.href = "/partner"
+                        if ($res.status) {
+                            toastr.success("Vui loàng kiểm tra email của bạn");
                         } else {
-                            toastr.error("Đăng nhập thất bại");
+                            toastr.error("Tài khoản không tồn tại");
                         }
                     },
-                    error: function($err) {
-                        var listError = $err.responseJSON.errors;
-                        $.each(listError, function(key, value) {
-                            toastr.error(value[0]);
-                        });
-                    },
+
                 });
             });
         });

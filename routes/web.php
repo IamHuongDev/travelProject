@@ -17,17 +17,23 @@ Route::get('/', function () {
     return view('Partner.Master');
 });
 
+Route::get('/partner', function () {
+    return view('Partner.HomePage');
+});
 Route::get('/partner/login',[\App\Http\Controllers\PartnerController::class,'viewLogin']);
 Route::post('/partner/login',[\App\Http\Controllers\PartnerController::class,'Login']);
 Route::get('/partner/register',[\App\Http\Controllers\PartnerController::class,'viewRegister']);
 Route::post('/partner/register',[\App\Http\Controllers\PartnerController::class,'Register']);
 Route::get('/partner/logout',[\App\Http\Controllers\PartnerController::class,'Logout']);
 Route::get('/partner/active/{hash}',[\App\Http\Controllers\PartnerController::class,'Active']);
+Route::get('/partner/reset-password',[\App\Http\Controllers\PartnerController::class,'ResetPassword']);
+Route::get('/partner/reset-password/{email}',[\App\Http\Controllers\PartnerController::class,'SendMailResetPassword']);
+Route::get('/partner/reset/{hash}',[\App\Http\Controllers\PartnerController::class,'viewReset']);
+Route::post('/partner/reset/',[\App\Http\Controllers\PartnerController::class,'ResetPasswordChange']);
 
 Route::post('/partner/check-email',[\App\Http\Controllers\PartnerController::class,'checkEmail']);
 
-
-Route::group(['prefix' => '/partner'], function () {
+Route::group(['prefix' => '/partner', 'middleware' => 'checkPartner'], function () {
     Route::group(['prefix' => '/category'], function () {
         Route::get('/',[\App\Http\Controllers\CategoryController::class,'index']);
         Route::post('/',[\App\Http\Controllers\CategoryController::class,'store']);
@@ -44,7 +50,6 @@ Route::group(['prefix' => '/partner'], function () {
 
         Route::post('/find/title',[\App\Http\Controllers\NewsController::class,'findTitle']);
 
-
         Route::get('/getData',[\App\Http\Controllers\NewsController::class,'showAjax']);
         Route::get('/delete/{id}',[\App\Http\Controllers\NewsController::class,'destroy']);
         Route::get('/deleteAjax/{id}',[\App\Http\Controllers\NewsController::class,'destroyAjax']);
@@ -52,9 +57,6 @@ Route::group(['prefix' => '/partner'], function () {
         Route::post('/updateAjax',[\App\Http\Controllers\NewsController::class,'updateAjax']);
 
         Route::get('/changeOpen/{id}',[\App\Http\Controllers\NewsController::class,'changeOpen']);
-
-
-
 
         Route::get('/edit/{id}',[\App\Http\Controllers\NewsController::class,'edit']);
         Route::post('/update',[\App\Http\Controllers\NewsController::class,'update']);

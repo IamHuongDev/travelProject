@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Partner\CheckEmailRequest;
 use App\Http\Requests\Partner\LoginRequest;
+use App\Http\Requests\Partner\ResetPasswordRequest;
+use App\Jobs\ResetPasswordJob;
 use App\Jobs\sendMailJob;
 use App\Mail\RegisterMail;
 use App\Models\Partner;
@@ -130,69 +132,60 @@ class PartnerController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function ResetPassword()
     {
-        //
+        return view('Partner.reset-password');
+    }
+    public function SendMailResetPassword($email)
+    {
+        $partner = Partner::where('email', $email)->first();
+
+        if ($partner) {
+
+            if($partner->is_reset){
+                return response()->json(['status' => true]);
+            }
+
+            $partner->is_reset = 1;
+            $partner->hash_reset = Str::uuid();
+            $partner->save();
+
+            $dataMail['full_name'] = $partner->first_name.' '. $partner->last_name;
+            $dataMail['hash_reset'] = $partner->hash_reset;
+
+            ResetPasswordJob::dispatch( $email, 'Mail thông báo reset mật khẩu'. Carbon::now(), $dataMail);
+
+            return response()->json(['status' => true]);
+        } else {
+            return response()->json(['status' => false]);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function viewReset($hash)
     {
-        //
+        return view('Partner.resetPass', compact('hash'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Partner  $partner
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Partner $partner)
+
+    public function ResetPasswordChange(ResetPasswordRequest $request)
     {
-        //
+        $hash = $request->hash;
+
+        $partner = Partner::where('hash_reset', $hash)->where('is_reset', 1)->first();
+
+        if($partner){
+            $partner->hash_reset = null;
+            $partner->is_reset = 0;
+            $partner->password = bcrypt($request->password);
+
+            $partner->save();
+
+            return response()->json(['status' => true]);
+        } else {
+            return response()->json(['status' => false]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Partner  $partner
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Partner $partner)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Partner  $partner
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Partner $partner)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Partner  $partner
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Partner $partner)
-    {
-        //
-    }
 }

@@ -129,7 +129,7 @@
                     success: function($res) {
                         if ($res.status) {
                             toastr.success("Đã thêm mới tài khoản thành công ");
-                            location.reload();
+                            location.href = "/partner/login"
                         } else {
                             toastr.error("có lỗi hệ thống ");
                         }
