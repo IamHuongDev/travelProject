@@ -11,7 +11,7 @@ class RegisterMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $tieuDe;
+    public $tieu_de;
 
     public $data;
 
@@ -20,9 +20,9 @@ class RegisterMail extends Mailable
      *
      * @return void
      */
-    public function __construct($tieuDe, $data)
+    public function __construct($tieu_de, $data)
     {
-        $this->tieuDe            = $tieuDe;
+        $this->tieu_de            = $tieu_de;
         $this->data              = $data;
     }
 
@@ -33,6 +33,6 @@ class RegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.register', ['data' => $this->data])->subject($this->tieuDe);
+        return $this->view('mail.register', ['data' => $this->data])->subject($this->tieu_de);
     }
 }

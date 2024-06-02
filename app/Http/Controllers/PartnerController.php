@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Partner\CheckEmailRequest;
 use App\Http\Requests\Partner\LoginRequest;
+use App\Jobs\sendMailJob;
 use App\Mail\RegisterMail;
 use App\Models\Partner;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 
@@ -40,12 +42,12 @@ class PartnerController extends Controller
     {
         $data = $request->all();
 
-        $parts = explode(" ", $request->full_name);
-        if(count($parts) > 1){
+        $parts = explode(" ", $data['full_name']);
+        if (count($parts) > 1) {
             $lastname = array_pop($parts);
             $firstname = implode(" ", $parts);
         } else {
-            $firstname = $request->full_name;
+            $firstname = $data['full_name'];
             $lastname = " ";
         }
 
@@ -54,14 +56,14 @@ class PartnerController extends Controller
 
         $data['hash'] = Str::uuid();
 
-        $data['password'] = bcrypt($request->password);
+        $data['password'] = bcrypt($data['password']);
 
         Partner::create($data);
 
         $dataMail['full_name'] = $firstname . ' ' . $lastname;
+        $dataMail['hash'] = $data['hash'];
 
-        // for($i = 0; $i < 10; $i++)
-        Mail::to($request->email)->send(new RegisterMail('Mail thông báo đăng ký tài khoản thành công' . Carbon::now(), $dataMail));
+        sendMailJob::dispatch($request->email, 'Mail thông báo đăng ký tài khoản thành công' . Carbon::now(), $dataMail);
 
         return response()->json(['status' => true]);
     }
@@ -73,9 +75,9 @@ class PartnerController extends Controller
 
         Auth::guard('partner')->attempt($data);
 
-        if(Auth::guard('partner')->check()){
+        if (Auth::guard('partner')->check()) {
             $partner = Auth::guard('partner')->user();
-            if($partner->is_active == 0){
+            if ($partner->is_active == 0) {
                 return response()->json(['status' => 1]);
             } else {
                 return response()->json(['status' => 2]);
@@ -92,13 +94,35 @@ class PartnerController extends Controller
         return redirect('/partner/login');
     }
 
+    public function Active($hash){
+        $partner = Partner::where('hash', $hash)->first();
+
+        if($partner){
+            if($partner->is_active == 0) {
+
+                $partner->is_active = 1;
+                $partner->save();
+
+                toastr()->success('Tài khoản đã kích hoạt thành công');
+                return redirect('/partner/login');
+
+            } else {
+                toastr()->error('Tài khoản đã kích hoạt trước đó');
+                return redirect('/partner/login');
+            }
+        } else {
+            toastr()->error('Đường dẫn không tồn tại');
+            return redirect('/partner/register');
+        }
+    }
+
     public function checkEmail(CheckEmailRequest $request)
     {
         $email = $request->email;
 
         $findEmail = Partner::where('email', $email)->first();
 
-        if($findEmail){
+        if ($findEmail) {
             return response()->json(['status' => true]);
         } else {
             return response()->json(['status' => false]);

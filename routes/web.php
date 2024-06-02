@@ -22,6 +22,7 @@ Route::post('/partner/login',[\App\Http\Controllers\PartnerController::class,'Lo
 Route::get('/partner/register',[\App\Http\Controllers\PartnerController::class,'viewRegister']);
 Route::post('/partner/register',[\App\Http\Controllers\PartnerController::class,'Register']);
 Route::get('/partner/logout',[\App\Http\Controllers\PartnerController::class,'Logout']);
+Route::get('/partner/active/{hash}',[\App\Http\Controllers\PartnerController::class,'Active']);
 
 Route::post('/partner/check-email',[\App\Http\Controllers\PartnerController::class,'checkEmail']);
 
