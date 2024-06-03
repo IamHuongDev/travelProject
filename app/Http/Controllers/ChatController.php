@@ -15,25 +15,42 @@ class ChatController extends Controller
         // return view('Partner.Chat_v1',compact('data'));
         return view('Partner.Chat_v1');
     }
+    public function index()
+    {
+        return view('Partner.Chat');
+    }
 
     public function sendMessageChatVer1(ChatRequest $request)
     {
         $user = Auth::guard('partner')->user();
 
-        Chat::create([
+        $chat = Chat::create([
             'user_id' =>    $user->id,
             'content' => $request->content,
         ]);
 
-        return response()->json(['status' => true]);
+        return response()->json(['status' => true, 'chat' => $chat]);
 
+    }
+
+    public function deleteAll()
+    {
+        $data = Chat::all();
+
+        foreach($data as $key => $value){
+            $value->delete();
+        }
+
+        return response()->json(['data' => true]);
     }
 
     public function showMessageChatVer1()
     {
        $data = Chat::all();
 
-       return response()->json(['data' => $data]);
+        $user = Auth::guard('partner')->user();
+
+       return response()->json(['data' => $data,'user' => $user->id]);
     }
 
 

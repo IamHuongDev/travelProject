@@ -40,6 +40,10 @@ Route::group(['prefix' => '/partner', 'middleware' => 'checkPartner'], function 
         Route::post('/ver-1',[\App\Http\Controllers\ChatController::class,'sendMessageChatVer1']);
         Route::get('/load-ver-1',[\App\Http\Controllers\ChatController::class,'showMessageChatVer1']);
 
+        //final
+        Route::get('/',[\App\Http\Controllers\ChatController::class,'index']);
+        Route::get('/delete',[\App\Http\Controllers\ChatController::class,'deleteAll']);
+
     });
 
     Route::group(['prefix' => '/category'], function () {

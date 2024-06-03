@@ -2,6 +2,7 @@
 <html lang="en">
    <head>
         @include('Partner.Shared.Head-Css')
+        @yield('css')
    </head>
    <body>
       <!-- loader Start -->
