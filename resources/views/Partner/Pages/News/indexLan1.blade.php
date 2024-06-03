@@ -117,5 +117,5 @@
 @endsection
 
 @section('js')
-    <!-- Any JavaScript specific to this view can be included here -->
+    
 @endsection

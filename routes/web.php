@@ -34,6 +34,14 @@ Route::post('/partner/reset/',[\App\Http\Controllers\PartnerController::class,'R
 Route::post('/partner/check-email',[\App\Http\Controllers\PartnerController::class,'checkEmail']);
 
 Route::group(['prefix' => '/partner', 'middleware' => 'checkPartner'], function () {
+
+    Route::group(['prefix' => '/chat'], function () {
+        Route::get('/ver-1',[\App\Http\Controllers\ChatController::class,'indexChatVer1']);
+        Route::post('/ver-1',[\App\Http\Controllers\ChatController::class,'sendMessageChatVer1']);
+        Route::get('/load-ver-1',[\App\Http\Controllers\ChatController::class,'showMessageChatVer1']);
+
+    });
+
     Route::group(['prefix' => '/category'], function () {
         Route::get('/',[\App\Http\Controllers\CategoryController::class,'index']);
         Route::post('/',[\App\Http\Controllers\CategoryController::class,'store']);
@@ -41,6 +49,7 @@ Route::group(['prefix' => '/partner', 'middleware' => 'checkPartner'], function 
         Route::post('/update',[\App\Http\Controllers\CategoryController::class,'update']);
         Route::get('/delete/{id}',[\App\Http\Controllers\CategoryController::class,'destroy']);
     });
+
     Route::group(['prefix' => '/new'], function () {
         Route::get('/',[\App\Http\Controllers\NewsController::class,'index']);
         Route::post('/',[\App\Http\Controllers\NewsController::class,'store']);

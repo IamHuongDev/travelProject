@@ -20,7 +20,7 @@
                         <li class="nav-item">
                            <a href="index.html" class="nav-link font-weight-bold search-box-toggle"><i class="ri-home-4-line"></i></a>
                         </li>
-                        <li><a href="chat.html" class="nav-link"><i class="ri-message-line"></i></a></li>
+                        <li><a href="/partner/chat/ver-1" class="nav-link"><i class="ri-message-line"></i></a></li>
                         <li><a href="e-commerce-product-list.html" class="nav-link"><i class="ri-file-list-line"></i></a></li>
                         <li><a href="profile.html" class="nav-link"><i class="ri-question-answer-line"></i></a></li>
                         <li><a href="todo.html" class="nav-link router-link-exact-active router-link-active"><i class="ri-chat-check-line"></i></a></li>
