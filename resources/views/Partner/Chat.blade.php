@@ -4,6 +4,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"
         integrity="sha512-u9akINsQsAkG9xjc1cnGF4zw5TFDwkxuc9vUp5dltDWYCSmyd0meygbvgXrlc/z7/o4a19Fb5V0OUE58J7dcyw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script src="/js/app.js"></script>
 @endsection
 @section('content')
     <div id="app">
@@ -142,7 +144,7 @@
 @section('js')
     <script>
         new Vue({
-            el: "#app",
+            el: '#app',
             data: {
                 content: '',
                 user_login: '',
@@ -155,9 +157,14 @@
                         this.user_login = res.data.user;
                         this.allMessage = res.data.data;
                     });
-                this.amThanh = new Audio('/chuong_chat.mp3')
-            },
 
+                this.amThanh = new Audio('/chuong_chat.mp3');
+
+                Echo.channel('chat').listen('newMessage', (res) => {
+                    this.allMessage.push(res.chat);
+                    this.amThanh.play();
+                });
+            },
             methods: {
                 guiTinNhan() {
                     const payload = {
@@ -168,7 +175,6 @@
                             if (res.data.status) {
                                 this.allMessage.push(res.data.chat);
                                 this.content = '';
-                                this.amThanh.play();
                                 this.$nextTick(() => {
                                     this.scrollBottom();
                                 });
@@ -189,12 +195,7 @@
                     setTimeout(() => {
                         $("#allChats").scrollTop(document.querySelector("#allChats").scrollHeight);
                     }, 50);
-                },
-                // scrollBottom() {
-                //     let chatContent = this.$refs.allChats;
-                //     chatContent.scrollTop = chatContent.scrollHeight;
-                // },
-
+                }
             }
         });
     </script>

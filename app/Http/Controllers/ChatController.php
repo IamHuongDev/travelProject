@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\newMessage;
 use App\Http\Requests\Partner\ChatRequest;
 use App\Models\Chat;
 use Illuminate\Http\Request;
@@ -28,6 +29,8 @@ class ChatController extends Controller
             'user_id' =>    $user->id,
             'content' => $request->content,
         ]);
+
+        broadcast(new newMessage($chat))->toOthers();
 
         return response()->json(['status' => true, 'chat' => $chat]);
 

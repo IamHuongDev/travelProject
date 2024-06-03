@@ -23,7 +23,7 @@
                         <li><a href="/partner/chat/ver-1" class="nav-link"><i class="ri-message-line"></i></a></li>
                         <li><a href="e-commerce-product-list.html" class="nav-link"><i class="ri-file-list-line"></i></a></li>
                         <li><a href="profile.html" class="nav-link"><i class="ri-question-answer-line"></i></a></li>
-                        <li><a href="todo.html" class="nav-link router-link-exact-active router-link-active"><i class="ri-chat-check-line"></i></a></li>
+                        <li><a href="/partner/chat/" class="nav-link router-link-exact-active router-link-active"><i class="ri-chat-check-line"></i></a></li>
                         <li><a href="app/index.html" class="nav-link"><i class="ri-inbox-line"></i></a></li>
                      </ul>
                      <div class="iq-search-bar d-none d-md-block">
