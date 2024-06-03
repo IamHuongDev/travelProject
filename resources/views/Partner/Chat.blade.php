@@ -164,6 +164,12 @@
                     this.allMessage.push(res.chat);
                     this.amThanh.play();
                 });
+
+                Echo.channel('delete').listen('deleteMessage', (res) => {
+                    if(res.deleteStatus){
+                        this.allMessage = [];
+                    }
+                });
             },
             methods: {
                 guiTinNhan() {

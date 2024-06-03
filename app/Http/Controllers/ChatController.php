@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\deleteMessage;
 use App\Events\newMessage;
 use App\Http\Requests\Partner\ChatRequest;
 use App\Models\Chat;
@@ -43,6 +44,8 @@ class ChatController extends Controller
         foreach($data as $key => $value){
             $value->delete();
         }
+
+        broadcast(new deleteMessage(true));
 
         return response()->json(['data' => true]);
     }
