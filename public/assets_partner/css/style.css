@@ -927,7 +927,7 @@ form.comment-text { position: relative; }
 .twit-date a { color: var(--iq-icon-color); }
 
 /*---------------------------------------------------------------------
-Profile Edit 
+Profile Edit
 -----------------------------------------------------------------------*/
 .profile-pic { max-width: 100%; display: block; border-radius: 50%; -webkit-border-radius: 50%; }
 .profile-img-edit { position: relative; display: inline-block; height: 150px; width: 150px; }

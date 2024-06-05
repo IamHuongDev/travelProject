@@ -77,3 +77,36 @@ Route::group(['prefix' => '/partner', 'middleware' => 'checkPartner'], function 
     });
 });
 
+
+Route::get('/admin', function () {
+    return view('Admin.HomePage');
+});
+
+Route::get('/admin/login', function () {
+    return view('Admin.login');
+});
+
+
+
+// Route::get('/admin/login',[\App\Http\Controllers\AdminController::class,'viewLogin']);
+
+Route::group(['prefix' => '/admin'], function () {
+    Route::group(['prefix' => '/thanh-pho'], function () {
+        Route::get('/',[\App\Http\Controllers\ThanhPhoController::class,'index']);
+        Route::post('/create',[\App\Http\Controllers\ThanhPhoController::class,'store']);
+        Route::post('/update',[\App\Http\Controllers\ThanhPhoController::class,'update']);
+        Route::get('/delete/{id}',[\App\Http\Controllers\ThanhPhoController::class,'destroy']);
+    });
+    Route::group(['prefix' => '/danh-muc'], function () {
+        Route::get('/',[\App\Http\Controllers\DanhMucController::class,'index']);
+        Route::post('/create',[\App\Http\Controllers\DanhMucController::class,'store']);
+        Route::post('/update',[\App\Http\Controllers\DanhMucController::class,'update']);
+        Route::get('/delete/{id}',[\App\Http\Controllers\DanhMucController::class,'destroy']);
+    });
+    Route::group(['prefix' => '/nha-hang-khach-san'], function () {
+        Route::get('/create',[\App\Http\Controllers\NhaHangKhachSanController::class,'create']);
+        Route::post('/create',[\App\Http\Controllers\NhaHangKhachSanController::class,'store']);
+        Route::post('/update',[\App\Http\Controllers\NhaHangKhachSanController::class,'update']);
+        Route::get('/delete/{id}',[\App\Http\Controllers\NhaHangKhachSanController::class,'destroy']);
+    });
+});

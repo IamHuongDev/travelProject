@@ -1,13 +1,13 @@
-     {{-- @jquery
+     @jquery
      @toastr_js
-     @toastr_render --}}
+     @toastr_render
 
 
-
+     <script src="/js/app.js"></script>
      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
      <script src="/assets_partner/js/jquery.min.js"></script>
      <!-- Rtl and Darkmode -->
-     <script src="/assets_partner/js/rtl.js"></script>
+     <script src="/assets_partner/js/rtl.js"></scrip>
      <script src="/assets_partner/js/customizer.js"></script>
      <script src="/assets_partner/js/popper.min.js"></script>
      <script src="/assets_partner/js/bootstrap.min.js"></script>
