@@ -32,7 +32,7 @@ class CreateNhaHangKhachSansTable extends Migration
             $table->string('gio_lam_viec_thu_6');
             $table->string('gio_lam_viec_thu_7');
             $table->string('gio_lam_viec_thu_8');
-            $table->string('danh_sach_hinh_anh')->nullable();
+            $table->text('danh_sach_hinh_anh')->nullable();
             $table->string('video');
             $table->string('muc_gia');
             $table->string('rate');

@@ -38,4 +38,10 @@ class NhaHangKhachSan extends Model
         'danh_muc_id',
         'thuoc_tinh',
     ];
+
+    public function danhMuc()
+    {
+        return $this->belongsTo('\App\Models\DanhMuc', 'danh_muc_id', 'id');
+    }
+
 }

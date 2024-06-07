@@ -14,7 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('Partner.Master');
+    return view('HomePage.Master');
+});
+
+Route::get('/nha-hang-khach-san/{slug}', [\App\Http\Controllers\NhaHangKhachSanController::class,'index']);
+Route::post('/nha-hang-khach-san/review', [\App\Http\Controllers\NhaHangKhachSanController::class,'review']);
+
+
+Route::group(['prefix' => 'laravel-filemanager'], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
 Route::get('/partner', function () {
@@ -110,3 +118,5 @@ Route::group(['prefix' => '/admin'], function () {
         Route::get('/delete/{id}',[\App\Http\Controllers\NhaHangKhachSanController::class,'destroy']);
     });
 });
+
+

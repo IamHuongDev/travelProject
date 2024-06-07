@@ -42,7 +42,6 @@
                                 </tr>
 
                             </tbody>
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -148,20 +147,17 @@
 
                                 <div class="col-md-6 mb-3">
                                     <label>Banner</label>
-                                    <div class="input-group mt-1">
-                                        <div class="custom-file">
-                                            <input id="thumbnail" type="text" class="form-control" name="banner">
-                                            <span class="input-group-append">
-                                                <a data-input="thumbnail" data-preview="holder"
-                                                    class=" btn btn-primary text-white uploadimage"
-                                                    type="button">Chọn</a>
-                                            </span>
-                                        </div>
-
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a id="lfm2" data-input="thumbnail2" data-preview="holder2"
+                                                class="btn btn-primary text-white lfm">
+                                                <i class="fa fa-picture-o"></i> Choose </a>
+                                        </span>
+                                        <input id="thumbnail2" class="form-control" style="height:35px;" type="text"
+                                            name="banner">
                                     </div>
                                     <div class="image-preview mt-2">
-                                        <img id="holder" class="img-fluid" style="max-height: 100px;">
-
+                                        <div id="holder2" style="margin-top:15px;max-height:100px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -179,32 +175,29 @@
                                             class="form-control" placeholder="Nhập giờ làm việc">
                                     </div>
                                 @endfor
-
-
-                            </div>
-                            <div class="d-flex flex-wrap">
-                                <div class="col-md-3 md-3">
-                                    <div class="form-group mt-1">
-                                        <label>Hình ảnh</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input id="image_1" type="text" class="form-control"
-                                                    name="danh_sach_hinh_anh">
-                                                <span class="input-group-append">
-                                                    <a data-input="image_1" data-preview="imageview_1"
-                                                        class="btn btn-primary text-white uploadimage"
-                                                        type="button">Chọn</a>
-                                                    <button type="button" class="btn btn-danger them_anh">Thêm
-                                                        image</button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <img id="imageview_1" class="img-fluid" style="max-height: 100px;">
-                                </div>
                             </div>
                         </div>
-                        <div class="form-group ">
+                        <div class="d-flex flex-wrap">
+                            <div class="col">
+                                <div class="form-group mt-1">
+                                    <label>Hình ảnh</label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a id="lfm" data-input="thumbnail" data-preview="holder"
+                                                class="btn btn-primary text-white lfm">
+                                                <i class="fa fa-picture-o"></i> Choose </a>
+                                        </span>
+                                        <input id="thumbnail" class="form-control" style="height:35px;" type="text"
+                                            name="danh_sach_hinh_anh">
+                                    </div>
+                                </div>
+                                <div class="image-preview mt-2">
+                                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group mt-3 ">
                             <div class="offset-sm-3">
                                 <button type="submit" class="btn btn-sm btn-success"><i class="ri-add-fill"></i><span
                                         class="pl-1">Thêm
@@ -219,9 +212,16 @@
 @endsection
 
 @section('js')
-    <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
     <script>
-        $('.uploadimage').filemanager('image');
+        var route_prefix = "/laravel-filemanager";
+    </script>
+    <script>
+        {!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/js/stand-alone-button.js')) !!}
+    </script>
+    <script>
+        $('.lfm').filemanager('image', {
+            prefix: route_prefix
+        });
     </script>
     <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
     <script>
@@ -230,7 +230,14 @@
     </script>
     <script>
         $(document).ready(function(e) {
-            var total = 1;
+
+            // Function to clear image preview
+            function clearImagePreview() {
+                $('#holder').html('');
+                $('#thumbnail').val('');
+                $('#holder2').html('');
+                $('#thumbnail2').val('');
+            }
 
             $("#them_moi").submit(function(event) {
                 event.preventDefault();
@@ -248,6 +255,7 @@
                             $("#them_moi").trigger("reset");
                             CKEDITOR.instances["thuoc_tinh"].setData('');
                             CKEDITOR.instances["mo_ta_chi_tiet"].setData('');
+                            clearImagePreview(); // Clear image preview after successful submission
                         }
                     })
                     .catch(function(res) {
@@ -259,21 +267,7 @@
 
             });
 
-            $('body').on('click', '.them_anh', function() {
-                event.preventDefault();
-                console.log("Đã click được thêm ảnh!!");
 
-                total++;
-
-                var html =
-                    "<div class='col-md-3 md-3'> <div class='form-group mt-1'> <label >Hình ảnh</label> <div class='input-group'> <div class='custom-file'> <input id='image_" +
-                    total + "' type='text' class='form-control' name='image_" + total +
-                    "'> <span class='input-group-append'> <a data-input='image_" + total +
-                    "' data-preview='imageview_" + total +
-                    "' class='btn btn-primary text-white uploadimage' type='button'>Chọn</a> <button type='button' class='btn btn-danger them_anh'>Thêm image</button> </span> </div> </div> </div> <img id='imageview_" +
-                    total + "' class='img-fluid' style='max-height: 100px;'> </div>";
-                $("#row_data .d-flex").append(html);
-            });
         });
     </script>
 @endsection
