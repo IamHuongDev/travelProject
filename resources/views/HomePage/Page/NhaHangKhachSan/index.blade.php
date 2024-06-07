@@ -271,25 +271,25 @@
                             <ul>
                                 <li>
                                     <div class="atbd_info_title">
-                                        <span class="la la-map-marker"></span>Address:
+                                        <span><ion-icon name="location-outline"></ion-icon></span>Address:
                                     </div>
                                     <div class="atbd_info">{{ $data->dia_chi }}</div>
                                 </li>
                                 <li>
                                     <div class="atbd_info_title">
-                                        <span class="la la-phone"></span>Phone Number:
+                                        <span><ion-icon name="call-outline"></ion-icon></span>Phone Number:
                                     </div>
                                     <div class="atbd_info">{{ $data->so_dien_thoai }}</div>
                                 </li>
                                 <li>
                                     <div class="atbd_info_title">
-                                        <span class="la la-envelope"></span>Email:
+                                        <span ><ion-icon name="mail-outline"></ion-icon></span>Email:
                                     </div>
                                     <span class="atbd_info">{{ $data->email }}</span>
                                 </li>
                                 <li>
                                     <div class="atbd_info_title">
-                                        <span class="la la-globe"></span>Website:
+                                        <span><ion-icon name="earth-outline"></ion-icon></span>Website:
                                     </div>
                                     <a href="" class="atbd_info">{{ $data->website }}</a>
                                 </li>
@@ -508,15 +508,23 @@
                 <div class="atbd_content_module atbd_review_form">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
-                            <h4><span class="la la-star"></span>Add a Review</h4>
+                            <h4><span ><ion-icon name="star-outline"></ion-icon></span>Add a Review</h4>
                         </div>
                     </div>
                     <div class="atbdb_content_module_contents atbd_give_review_area">
+                        @if ($user = Auth::guard('customer')->user())
+                        <div class="atbd_notice alert alert-success" role="alert">
+                            Chào bạn, {{$user->first_name . ' ' . $user->last_name}}
+                        </div>
+                        @else
                         <div class="atbd_notice alert alert-info" role="alert">
-                            <span class="la la-info" aria-hidden="true"></span>
-                            You need to <a href="">Login</a> or <a href="">Register</a> to
+                            <span aria-hidden="true"><ion-icon name="information-outline"></ion-icon></span>
+                            You need to <a href="" class="access-link" data-toggle="modal"
+                            data-target="#login_modal">Login</a> or <a href="" class="access-link" data-toggle="modal"
+                            data-target="#signup_modal">Register</a> to
                             submit a review
                         </div>
+                        @endif
                         <!-- ends: .atbd_notice -->
 
                         <form  id="atbdp_review_form">
@@ -553,14 +561,11 @@
             <div class="col-lg-4 mt-5 mt-lg-0">
                 <div class="widget atbd_widget widget-card">
                     <div class="atbd_widget_title">
-                        <h4><span class="la la-user"></span>Seller Info</h4>
+                        <h4><span><ion-icon name="person-outline"></ion-icon></span>Seller Info</h4>
                     </div>
                     <!-- ends: .atbd_widget_title -->
                     <div class="widget-body atbd_author_info_widget">
                         <div class="atbd_avatar_wrapper">
-                            <div class="atbd_review_avatar">
-                                <img src="img/avatar-60x60.jpg" alt="Avatar Image" />
-                            </div>
                             <div class="atbd_name_time">
                                 <h4>
                                     {{ $data->name }}
@@ -574,19 +579,19 @@
                         <div class="atbd_widget_contact_info">
                             <ul>
                                 <li>
-                                    <span class="la la-map-marker"></span>
+                                    <span><ion-icon name="location-outline"></ion-icon></span>
                                     <span class="atbd_info">{{ $data->dia_chi }}</span>
                                 </li>
                                 <li>
-                                    <span class="la la-phone"></span>
+                                    <span><ion-icon name="call-outline"></ion-icon></span>
                                     <span class="atbd_info">{{ $data->so_dien_thoai }}</span>
                                 </li>
                                 <li>
-                                    <span class="la la-envelope"></span>
+                                    <span><ion-icon name="mail-outline"></ion-icon></span>
                                     <span style="font-size: 13px;" class="atbd_info">{{ $data->email }}</span>
                                 </li>
                                 <li>
-                                    <span class="la la-globe"></span>
+                                    <span><ion-icon name="earth-outline"></ion-icon></span>
                                     <a href="" class="atbd_info">{{ $data->website }}</a>
                                 </li>
                             </ul>
@@ -854,32 +859,32 @@
 @section('js')
     <script>
         $(document).ready(function() {
-        $("#atbdp_review_form_submit").click(function() {
-            console.log(1111);
+            $("#atbdp_review_form_submit").click(function() {
+                console.log(1111);
 
-            var id = $("#id_nha_hang_khach_san").val();
-            var content = $("#content").val();
-            var rate = $("#rate").val();
+                var id = $("#id_nha_hang_khach_san").val();
+                var content = $("#content").val();
+                var rate = $("#rate").val();
 
-            var payload = {
-                'nha_hang_khach_san_id': id,
-                'rate': rate,
-                'content': content,
-            };
+                var payload = {
+                    'nha_hang_khach_san_id': id,
+                    'rate': rate,
+                    'content': content,
+                };
 
 
-            axios.post('/nha-hang-khach-san/review', payload)
-                .then((res) => {
-                    if (res.data.status) {
-                        location.reload();
-                    } else {
-                        console.error('Request succeeded but status is false:', res.data);
-                    }
-                })
-                .catch((error) => {
-                    console.error('There was an error making the request:', error);
-                });
+                axios.post('/nha-hang-khach-san/review', payload)
+                    .then((res) => {
+                        if (res.data.status) {
+                            location.reload();
+                        } else {
+                            console.error('Request succeeded but status is false:', res.data);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('There was an error making the request:', error);
+                    });
+            });
         });
-    });
     </script>
 @endsection

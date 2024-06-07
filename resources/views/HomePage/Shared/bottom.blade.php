@@ -47,7 +47,7 @@
               <ul class="list-unstyled social-list">
                 <li>
                   <a href=""
-                    ><span class="mail"><i class="la la-envelope"></i></span>
+                    ><span class="mail"><i ><ion-icon name="mail-outline"></ion-icon></i></span>
                     Contact Support</a
                   >
                 </li>

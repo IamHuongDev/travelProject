@@ -2106,6 +2106,12 @@ window.getFormData = function ($form) {
   });
   return indexed_array;
 };
+window.displayErorr = function (res) {
+  var errors = res.response.data.errors;
+  $.each(errors, function (key, value) {
+    toastr.error(value);
+  });
+};
 
 /***/ }),
 

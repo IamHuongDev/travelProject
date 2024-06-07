@@ -15,5 +15,7 @@ class Review extends Model
         'nha_hang_khach_san_id',
         'rate',
         'content',
+        'customer_id',
+        'is_open',
     ];
 }

@@ -119,4 +119,6 @@ Route::group(['prefix' => '/admin'], function () {
     });
 });
 
-
+Route::post('/register',[\App\Http\Controllers\CustomerController::class,'Register']);
+Route::post('/login',[\App\Http\Controllers\CustomerController::class,'Login']);
+Route::get('/logout',[\App\Http\Controllers\CustomerController::class,'Logout']);

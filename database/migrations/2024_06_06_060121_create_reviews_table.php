@@ -18,6 +18,8 @@ class CreateReviewsTable extends Migration
             $table->integer('nha_hang_khach_san_id');
             $table->integer('rate');
             $table->text('content');
+            $table->integer('customer_id');
+            $table->integer('is_open')->default(0);
             $table->timestamps();
         });
     }
