@@ -140,6 +140,16 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/update',[\App\Http\Controllers\NewsController::class,'update']);
         Route::get('/delete/{id}',[\App\Http\Controllers\NewsController::class,'destroy']);
     });
+
+    Route::group(['prefix' => '/loai-san-pham'], function () {
+        Route::get('/',[\App\Http\Controllers\LoaiSanPhamController::class,'index']);
+        Route::get('/list-root',[\App\Http\Controllers\LoaiSanPhamController::class,'listRoot']);
+        Route::post('/create',[\App\Http\Controllers\LoaiSanPhamController::class,'store']);
+        Route::get('/list-all',[\App\Http\Controllers\LoaiSanPhamController::class,'listAll']);
+        Route::get('/delete/{id}', [\App\Http\Controllers\LoaiSanPhamController::class, 'destroy']);
+        Route::get('/edit/{id}', [\App\Http\Controllers\LoaiSanPhamController::class, 'edit']);
+        Route::post('/update/{id}', [\App\Http\Controllers\LoaiSanPhamController::class, 'update']);
+    });
 });
 
 Route::post('/register',[\App\Http\Controllers\CustomerController::class,'Register']);

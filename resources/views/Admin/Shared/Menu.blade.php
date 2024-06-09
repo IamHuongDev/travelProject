@@ -30,6 +30,8 @@
                    <li><a href="/admin/thanh-pho">Quản lý thành phố</a></li>
                    <li><a href="/admin/danh-muc">Quản lý danh mục</a></li>
                    <li><a href="/admin/nha-hang-khach-san/create">Quản lý nhà hàng khách sạn</a></li>
+                   <li><a href="/admin/loai-san-pham">Quản lý loại sản phẩm</a></li>
+                   <li><a href="/admin/san-pham">Quản lý sản phẩm</a></li>
                 </ul>
              </li>
 
