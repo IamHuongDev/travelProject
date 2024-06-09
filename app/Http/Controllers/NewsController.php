@@ -16,16 +16,12 @@ use Carbon\Carbon;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         // $data = News::all();
 
-        return view('Partner.Pages.News.indexLan1');
+        return view('Admin.Pages.TinTuc.index');
     }
 
 

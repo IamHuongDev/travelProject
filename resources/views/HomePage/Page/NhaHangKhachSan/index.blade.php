@@ -1,173 +1,177 @@
 @extends('HomePage.Master')
 
 @section('title')
-    <div class="bg_image_holder">
-        <img src="{{ $data->banner }}" alt="" />
-    </div>
-    <div class="listing-info content_above">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-7">
-                    <ul class="list-unstyled listing-info--badges">
-                        <li>
-                            <span class="atbd_badge atbd_badge_featured">Featured</span>
-                        </li>
-                        <li>
-                            <span class="atbd_badge atbd_badge_popular">Popular</span>
-                        </li>
-                    </ul>
-                    <ul class="list-unstyled listing-info--meta">
-                        <li>
-                            <span class="atbd_meta atbd_listing_average_pricing" data-toggle="tooltip" data-placement="top"
-                                title="" data-original-title="Average">
-                                @php
-                                    $i = $data->muc_gia % 2 == 0 ? 0 : 1;
-                                @endphp
-                                @for ($i; $i < $data->muc_gia / 2; $i++)
-                                    <span class="atbd_active"><img src="/assets_homePages/img/svg/dollar.svg" class="svg"
-                                            alt="" /></span>
-                                @endfor
-                                @for ($i = 0; $i < $data->muc_gia % 2; $i++)
-                                    <span><img src="/assets_homePages/img/svg/dollar.svg" class="svg"
-                                            alt="" /></span>
-                                @endfor
-                            </span>
-                        </li>
-                        <li>
-                            <div class="average-ratings">
-                                <span class="atbd_meta atbd_listing_rating ">{{ number_format($data->rate / 2, 1) }}<ion-icon name="star-outline"></ion-icon></span>
-                                <span><strong>26</strong> Reviews</span>
-                            </div>
-                        </li>
-                        <li>
+<section class="listing-details-wrapper bgimage">
+    @include('HomePage.Shared.menu')
+
+<div class="bg_image_holder">
+    <img src="{{ $data->banner }}" alt="" />
+</div>
+<div class="listing-info content_above">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-7">
+                <ul class="list-unstyled listing-info--badges">
+                    <li>
+                        <span class="atbd_badge atbd_badge_featured">Featured</span>
+                    </li>
+                    <li>
+                        <span class="atbd_badge atbd_badge_popular">Popular</span>
+                    </li>
+                </ul>
+                <ul class="list-unstyled listing-info--meta">
+                    <li>
+                        <span class="atbd_meta atbd_listing_average_pricing" data-toggle="tooltip" data-placement="top"
+                            title="" data-original-title="Average">
                             @php
-                                $arr = ['', 'Nhà Hàng', 'Khách sạn'];
-                                $icon = ['', 'restaurant-outline', 'bed-outline'];
+                                $i = $data->muc_gia % 2 == 0 ? 0 : 1;
                             @endphp
-                            <div class="atbd_listing_category">
-                                <a href=""><span><ion-icon
-                                            name="{{ $icon[$data->danhMuc->loai_danh_muc] }}"></ion-icon></span>{{ $arr[$data->danhMuc->loai_danh_muc] }}</a>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- ends: .listing-info-meta -->
-
-                    <h1>{{ $data->name }}</h1>
-                    <p class="subtitle">{{ $data->mo_ta_ngan }}</p>
-                </div>
-                <div class="col-lg-4 col-md-5 d-flex align-items-end justify-content-start justify-content-md-end">
-                    <div class="atbd_listing_action_area">
-                        <div class="atbd_action atbd_save">
-                            <div class="action_button">
-                                <a href="" class="atbdp-favourites"><span class="la la-heart-o"></span> Save</a>
-                            </div>
+                            @for ($i; $i < $data->muc_gia / 2; $i++)
+                                <span class="atbd_active"><img src="/assets_homePages/img/svg/dollar.svg" class="svg"
+                                        alt="" /></span>
+                            @endfor
+                            @for ($i = 0; $i < $data->muc_gia % 2; $i++)
+                                <span><img src="/assets_homePages/img/svg/dollar.svg" class="svg"
+                                        alt="" /></span>
+                            @endfor
+                        </span>
+                    </li>
+                    <li>
+                        <div class="average-ratings">
+                            <span class="atbd_meta atbd_listing_rating ">{{ number_format($data->rate / 2, 1) }}<ion-icon name="star-outline"></ion-icon></span>
+                            <span><strong>26</strong> Reviews</span>
                         </div>
-                        <div class="atbd_action atbd_share dropdown">
-                            <span id="social-links" data-toggle="dropdown" aria-haspopup="true"
-                                  aria-expanded="false" role="menu">
-                                <span><ion-icon name="share-social-outline"></ion-icon></span><a href="{{ $data->facebook }}" target="_blank" style="color: white;">Share</a>
-                            </span>
-
-                            <!-- Ends social share -->
+                    </li>
+                    <li>
+                        @php
+                            $arr = ['', 'Nhà Hàng', 'Khách sạn'];
+                            $icon = ['', 'restaurant-outline', 'bed-outline'];
+                        @endphp
+                        <div class="atbd_listing_category">
+                            <a href=""><span><ion-icon
+                                        name="{{ $icon[$data->danhMuc->loai_danh_muc] }}"></ion-icon></span>{{ $arr[$data->danhMuc->loai_danh_muc] }}</a>
                         </div>
-                        <!-- Report Abuse-->
-                        <div class="atbd_action atbd_report">
-                            <div class="action_button">
-                                <a href="" data-toggle="modal" data-target="#atbdp-report-abuse-modal"><span
-                                        class="la la-flag-o"></span> Report</a>
-                            </div>
-                            <!-- Modal (report abuse form) -->
+                    </li>
+                </ul>
+                <!-- ends: .listing-info-meta -->
+
+                <h1>{{ $data->name }}</h1>
+                <p class="subtitle">{{ $data->mo_ta_ngan }}</p>
+            </div>
+            <div class="col-lg-4 col-md-5 d-flex align-items-end justify-content-start justify-content-md-end">
+                <div class="atbd_listing_action_area">
+                    <div class="atbd_action atbd_save">
+                        <div class="action_button">
+                            <a href="" class="atbdp-favourites"><span class="la la-heart-o"></span> Save</a>
                         </div>
                     </div>
-                    <!-- ends: .atbd_listing_action_area -->
+                    <div class="atbd_action atbd_share dropdown">
+                        <span id="social-links" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false" role="menu">
+                            <span><ion-icon name="share-social-outline"></ion-icon></span><a href="{{ $data->facebook }}" target="_blank" style="color: white;">Share</a>
+                        </span>
+
+                        <!-- Ends social share -->
+                    </div>
+                    <!-- Report Abuse-->
+                    <div class="atbd_action atbd_report">
+                        <div class="action_button">
+                            <a href="" data-toggle="modal" data-target="#atbdp-report-abuse-modal"><span
+                                    class="la la-flag-o"></span> Report</a>
+                        </div>
+                        <!-- Modal (report abuse form) -->
+                    </div>
                 </div>
+                <!-- ends: .atbd_listing_action_area -->
             </div>
         </div>
+    </div>
 
-        <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog" aria-hidden="true"
-            aria-labelledby="atbdp-report-abuse-modal-label">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <form action="/" id="atbdp-report-abuse-form" class="form-vertical">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="atbdp-report-abuse-modal-label">
-                                Report Abuse
-                            </h3>
-                            <button type="button" class="close" data-dismiss="modal">
-                                <span aria-hidden="true">×</span>
-                            </button>
+    <div class="modal fade" id="atbdp-report-abuse-modal" tabindex="-1" role="dialog" aria-hidden="true"
+        aria-labelledby="atbdp-report-abuse-modal-label">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form action="/" id="atbdp-report-abuse-form" class="form-vertical">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="atbdp-report-abuse-modal-label">
+                            Report Abuse
+                        </h3>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="atbdp-report-abuse-message" class="not_empty">Your Complaint<span
+                                    class="atbdp-star">*</span></label>
+                            <textarea class="form-control" id="atbdp-report-abuse-message" rows="4" placeholder="Message..." required=""></textarea>
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="atbdp-report-abuse-message" class="not_empty">Your Complaint<span
-                                        class="atbdp-star">*</span></label>
-                                <textarea class="form-control" id="atbdp-report-abuse-message" rows="4" placeholder="Message..." required=""></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-secondary btn-sm">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="moda_claim_listing" tabindex="-1" role="dialog" aria-labelledby="claim_listing_label"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="claim_listing_label">
+                        <i class="la la-check-square"></i> Claim This Listing
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="Your Name" class="form-control" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" placeholder="Email Address"
+                                        required />
+                                </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">
-                                Close
-                            </button>
-                            <button type="submit" class="btn btn-secondary btn-sm">
-                                Submit
-                            </button>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" placeholder="Phone Number" required />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="url" class="form-control" placeholder="Listing URL" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <textarea class="form-control" rows="6" placeholder="Provie Listing Information" required></textarea>
+                                    <button type="submit" class="btn btn-secondary">
+                                        Submit Query
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
-        <div class="modal fade" id="moda_claim_listing" tabindex="-1" role="dialog" aria-labelledby="claim_listing_label"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="claim_listing_label">
-                            <i class="la la-check-square"></i> Claim This Listing
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" placeholder="Your Name" class="form-control" required />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="email" class="form-control" placeholder="Email Address"
-                                            required />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" class="form-control" placeholder="Phone Number" required />
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="url" class="form-control" placeholder="Listing URL" required />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <textarea class="form-control" rows="6" placeholder="Provie Listing Information" required></textarea>
-                                        <button type="submit" class="btn btn-secondary">
-                                            Submit Query
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+</div>
+</section>
 @endsection
 
 @section('content')
@@ -262,7 +266,7 @@
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="la la-headphones"></span>Contact Information
+                                <span><ion-icon name="headset"></ion-icon></span>Contact Information
                             </h4>
                         </div>
                     </div>
@@ -309,7 +313,7 @@
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="la la-question-circle"></span>Lisiitng FAQ's
+                                <span><ion-icon name="help-circle-outline"></ion-icon></span>Lisiitng FAQ's
                             </h4>
                         </div>
                     </div>
@@ -343,164 +347,44 @@
                 <div class="atbd_content_module atbd_review_module">
                     <div class="atbd_content_module__tittle_area">
                         <div class="atbd_area_title">
-                            <h4><span class="la la-star-o"></span>4 Reviews</h4>
-                            <label for="review_content" class="btn btn-secondary btn-icon-left btn-sm not_empty"><span
-                                    class="la la-star-o"></span> Add a review</label>
+                            <h4><span class="la la-star-o"></span>{{count($list_review)}} Reviews</h4>
                         </div>
                     </div>
                     <div class="atbdb_content_module_contents">
                         <div id="client_review_list">
-                            <div class="atbd_single_review atbdp_static">
-                                <div class="atbd_review_top">
-                                    <div class="atbd_avatar_wrapper">
-                                        <div class="atbd_review_avatar">
-                                            <img alt="" src="img/review-author-thumb.jpg"
-                                                class="avatar avatar-32 photo" />
-                                        </div>
-                                        <div class="atbd_name_time">
-                                            <p>Mark Rose</p>
-                                            <span class="review_time">6 hours ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="atbd_rated_stars">
-                                        <ul>
-                                            <li><span class="rate_active"></span></li>
-                                            <li><span class="rate_active"></span></li>
-                                            <li><span class="rate_active"></span></li>
-                                            <li><span class="rate_active"></span></li>
-                                            <li><span class="rate_disable"></span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="review_content">
-                                    <p>
-                                        Lacinia eget consectetur sed, convallis at tellus.
-                                        Vivamus magna justo, lacinia eget consectetur sed,
-                                        convallis at tellus. Vestibulum ac diam sit amet quam
-                                        vehicula elementum sed sit amet dui. Curabitur non nulla
-                                        sit amet nisl tempus
-                                    </p>
-                                    <a href="#" class="reply"><span class="la la-mail-reply-all"></span>Reply</a>
-                                </div>
-                                <div class="review_reply_form">
-                                    <div class="atbd_review_avatar">
-                                        <img alt="" src="img/review-author-thumb2.jpg"
-                                            class="avatar avatar-32 photo" />
-                                    </div>
-                                    <form action="/">
-                                        <textarea placeholder="Message" class="form-control"></textarea>
-                                        <button class="btn btn-sm btn-secondary">Reply</button>
-                                    </form>
-                                </div>
 
-                                <!-- comment depth 2 -->
-                                <div class="media-depth2">
-                                    <div class="atbd_single_review">
-                                        <div class="atbd_review_top">
-                                            <div class="atbd_avatar_wrapper">
-                                                <div class="atbd_review_avatar">
-                                                    <img alt="" src="img/review-author-thumb2.jpg"
-                                                        class="avatar avatar-32 photo" />
-                                                </div>
-                                                <div class="atbd_name_time">
-                                                    <p>Conrad Jane</p>
-                                                    <span class="review_time">6 hours ago</span>
-                                                </div>
+                                @foreach ($list_review as $key_review => $value_review)
+                                <div class="atbd_single_review atbdp_static">
+                                    <div class="atbd_review_top">
+                                        <div class="atbd_avatar_wrapper">
+                                            <div class="atbd_name_time">
+                                                <p>{{$value_review->customer->first_name . ' ' . $value_review->customer->last_name}}</p>
+                                                <span class="review_time">{{ Carbon\Carbon::parse($value_review->created_at)->format('H:i d/m/Y') }}</span>
                                             </div>
                                         </div>
-                                        <div class="review_content">
-                                            <p>
-                                                Lacinia eget consectetur sed, convallis at tellus.
-                                                Vivamus magna justo, lacinia eget consectetur sed,
-                                                convallis at tellus vestibulum ac diam sit amet
-                                            </p>
-                                            <a href="#" class="reply"><span
-                                                    class="la la-mail-reply-all"></span>Reply</a>
-                                        </div>
-                                        <div class="review_reply_form">
-                                            <div class="atbd_review_avatar">
-                                                <img alt="" src="img/review-author-thumb.jpg"
-                                                    class="avatar avatar-32 photo" />
-                                            </div>
-                                            <form action="/">
-                                                <textarea placeholder="Message" class="form-control"></textarea>
-                                                <button class="btn btn-sm btn-secondary">
-                                                    Reply
-                                                </button>
-                                            </form>
+                                        <div class="atbd_rated_stars">
+                                            <ul>
+                                                @for ($i = 1; $i <= $value_review->rate; $i++)
+                                                    <li><span><ion-icon name="star"></ion-icon></span></li>
+                                                @endfor
+                                                @for ($i = 1; $i <= 5 - $value_review->rate; $i++)
+                                                    <li><span><ion-icon name="star-outline"></ion-icon></span></li>
+                                                @endfor
+                                            </ul>
                                         </div>
                                     </div>
-                                    <!-- ends: .atbd_single_review -->
+                                    <div class="review_content ml-3">
+                                        <p>
+                                            {{$value_review->content}}
+                                        </p>
+                                    </div>
                                 </div>
-                                <!-- ends: .media-depth2 -->
-                            </div>
-                            <!-- ends:.atbd_single_review -->
+                                @endforeach
 
-                            <div class="atbd_single_review atbdp_static">
-                                <div class="atbd_review_top">
-                                    <div class="atbd_avatar_wrapper">
-                                        <div class="atbd_review_avatar">
-                                            <img alt="" src="img/review-author-thumb3.jpg"
-                                                class="avatar avatar-32 photo" />
-                                        </div>
-                                        <div class="atbd_name_time">
-                                            <p>Conrad Jane</p>
-                                            <span class="review_time">6 hours ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="atbd_rated_stars">
-                                        <ul>
-                                            <li><span class="rate_active"></span></li>
-                                            <li><span class="rate_active"></span></li>
-                                            <li><span class="rate_active"></span></li>
-                                            <li><span class="rate_active"></span></li>
-                                            <li><span class="rate_active"></span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="review_content">
-                                    <p>
-                                        Lacinia eget consectetur sed, convallis at tellus.
-                                        Vivamus magna justo, lacinia eget consectetur sed,
-                                        convallis at tellus. Vestibulum ac diam sit amet quam
-                                        vehicula elementum sed sit amet dui. Curabitur non nulla
-                                        sit amet nisl tempus
-                                    </p>
-                                    <a href="#" class="reply"><span class="la la-mail-reply-all"></span>Reply</a>
-                                </div>
-                                <div class="review_reply_form">
-                                    <div class="atbd_review_avatar">
-                                        <img alt="" src="img/review-author-thumb2.jpg"
-                                            class="avatar avatar-32 photo" />
-                                    </div>
-                                    <form action="/">
-                                        <textarea placeholder="Message" class="form-control"></textarea>
-                                        <button class="btn btn-sm btn-secondary">Reply</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- ends: .atbd_single_review -->
+
                         </div>
-                        <!-- ends: .client_review_list -->
-                        <div class="review_pagination">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><span class="la la-angle-left"></span></a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#"><span class="la la-angle-right"></span></a>
-                                </li>
-                            </ul>
-                        </div>
+                        {{$list_review->links()}}
+
                     </div>
                 </div>
                 <!-- ends: .atbd_content_module -->
@@ -532,14 +416,12 @@
                                 <div class="atbd_review_update_rating">
                                     <span>Rating: </span>
                                     <div class="atbd_rating_stars">
-                                        <div class="br-wrapper br-theme-fontawesome-stars m-left-15">
-                                            <select name="rate" id="rate" class="give_rating">
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
-                                            </select>
+                                        <div class="star-rating">
+                                            <input type="radio" name="star" id="star1" value="1"><label for="star1"><ion-icon name="star"></ion-icon></label>
+                                            <input type="radio" name="star" id="star2" value="2"><label for="star2"><ion-icon name="star"></ion-icon></label>
+                                            <input type="radio" name="star" id="star3" value="3"><label for="star3"><ion-icon name="star"></ion-icon></label>
+                                            <input type="radio" name="star" id="star4" value="4"><label for="star4"><ion-icon name="star"></ion-icon></label>
+                                            <input type="radio" name="star" id="star5" value="5"><label for="star5"><ion-icon name="star"></ion-icon></label>
                                         </div>
                                     </div>
                                 </div>
@@ -860,11 +742,10 @@
     <script>
         $(document).ready(function() {
             $("#atbdp_review_form_submit").click(function() {
-                console.log(1111);
 
                 var id = $("#id_nha_hang_khach_san").val();
                 var content = $("#content").val();
-                var rate = $("#rate").val();
+                var rate = $("input[name='star']:checked").val();
 
                 var payload = {
                     'nha_hang_khach_san_id': id,
@@ -876,14 +757,13 @@
                 axios.post('/nha-hang-khach-san/review', payload)
                     .then((res) => {
                         if (res.data.status) {
+                            toastr.success('Đánh giá thành công');
                             location.reload();
                         } else {
-                            console.error('Request succeeded but status is false:', res.data);
+                            toastr.error('Vui lòng đăng nhập để đánh giá');
                         }
                     })
-                    .catch((error) => {
-                        console.error('There was an error making the request:', error);
-                    });
+
             });
         });
     </script>

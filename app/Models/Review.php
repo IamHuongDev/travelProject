@@ -18,4 +18,9 @@ class Review extends Model
         'customer_id',
         'is_open',
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo('\App\Models\Customer','customer_id','id');
+    }
 }

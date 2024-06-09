@@ -7,7 +7,7 @@
                         <div class="menu-fullwidth">
                             <div class="logo-wrapper order-lg-0 order-sm-1">
                                 <div class="logo logo-top">
-                                    <a href="index.html"><img src="https://demo.jsnorm.com/html/direo/img/logo-white.png"
+                                    <a href="/"><img src="https://demo.jsnorm.com/html/direo/img/logo-white.png"
                                             alt="logo image" class="img-fluid" /></a>
                                 </div>
                             </div>
@@ -26,103 +26,15 @@
                                         <div class="collapse navbar-collapse" id="direo-navbar-collapse">
                                             <ul class="navbar-nav">
                                                 <li>
-                                                    <a href="index.html">Home</a>
+                                                    <a href="/">Home</a>
                                                 </li>
-                                                <li class="dropdown has_dropdown">
+                                                <li>
+                                                    <a href="/nha-hang/list">Nhà hàng</a>
+                                                </li>
+                                                <li>
+                                                    <a href="/khach-san/list">Khách sạn</a>
+                                                </li>
 
-                                                    <a href="#" id="drop3" role="button"
-                                                        data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">Listings
-                                                        <ion-icon name="chevron-down-outline"></ion-icon></a>
-                                                    <ul class="dropdown-menu" aria-labelledby="drop3">
-
-                                                        <li>
-                                                            <a href="all-listings-grid.html">Listing Grid</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="all-listings-list.html">Listing List</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="listing-details.html">Listing Details</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="add-listing.html">Add Listing</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown has_dropdown">
-                                                    <a href="#" id="drop4" role="button"
-                                                        data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">Categories
-                                                        <ion-icon name="chevron-down-outline"></ion-icon></a>
-                                                    </a>
-                                                    <ul class="dropdown-menu" aria-labelledby="drop4">
-                                                        <li>
-                                                            <a href="all-categories.html">All Categories</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="all-locations.html">All Locations</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown has_dropdown">
-                                                    <a href="#" id="drop2" role="button"
-                                                        data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        Pages
-                                                        <ion-icon name="chevron-down-outline"></ion-icon></a>
-                                                    </a>
-                                                    <ul class="dropdown-menu" aria-labelledby="drop2">
-                                                        <li>
-                                                            <a href="author-profile.html">Author Profile</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="dashboard-listings.html">Author Dashboard</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="pricing-plans.html">Pricing Plans</a>
-                                                        </li>
-                                                        <li><a href="checkout.html">Checkout</a></li>
-                                                        <li><a href="invoice.html">Invoice</a></li>
-                                                        <li><a href="faqs.html">FAQ</a></li>
-                                                        <li><a href="about.html">About</a></li>
-                                                        <li><a href="contact.html">Contact</a></li>
-                                                        <li>
-                                                            <a href="cards.html">Products Cards</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="headers.html">Header Styles</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropdown has_dropdown">
-                                                    <a href="#" id="drop1" role="button"
-                                                        data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        Blog
-                                                        <ion-icon name="chevron-down-outline"></ion-icon></a>
-                                                    </a>
-                                                    <ul class="dropdown-menu" aria-labelledby="drop1">
-                                                        <li>
-                                                            <a href="blog-right-sidebar.html">Blog Right Sidebar</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="blog-grid.html">Blog Grid Layout</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="blog-details-standard.html">Blog Details</a>
-                                                        </li>
-                                                        <!-- dropdowns example -->
-                                                        <li class="dropdown-menu--inner">
-                                                            <a href="#">Dropdown Levels</a>
-                                                            <ul class="list-unstyled">
-                                                                <li><a href="">Places</a></li>
-                                                                <li><a href="">Shop</a></li>
-                                                                <li><a href="">Business</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
                                             </ul>
                                         </div>
                                         <!-- /.navbar-collapse -->
@@ -136,9 +48,9 @@
                                         <span class="icon-left" id="basic-addon9"><ion-icon
                                                 name="search-outline"></ion-icon></span>
                                         <div class="search_area">
-                                            <form action="/">
+                                            <form action="/search">
                                                 <div class="input-group input-group-light">
-                                                    <input type="text"
+                                                    <input name="keyword" type="text"
                                                         class="form-control search_field top-search-field"
                                                         placeholder="What are you looking for?" autocomplete="off" />
                                                 </div>
@@ -148,30 +60,26 @@
                                     <div class="search-categories">
                                         <ul class="list-unstyled">
                                             <li>
-                                                <a href=""><span class="la la-glass bg-danger"></span>
+                                                <a href=""><span class="bg-danger"><ion-icon name="wine-outline"></ion-icon></span>
                                                     Food & Drinks</a>
                                             </li>
                                             <li>
-                                                <a href=""><span class="la la-cutlery bg-primary"></span>
+                                                <a href="/nha-hang/list"><span class="bg-primary"><ion-icon name="restaurant-outline"></ion-icon></span>
                                                     Restaurants</a>
                                             </li>
                                             <li>
-                                                <a href=""><span class="la la-map-marker bg-success"></span>
+                                                <a href=""><span class="bg-success"><ion-icon name="location-outline"></ion-icon></span>
                                                     Places</a>
                                             </li>
                                             <li>
-                                                <a href=""><span
-                                                        class="la la-shopping-cart bg-secondary"></span>
+                                                <a href=""><span class=" bg-warning"><ion-icon name="cart-outline"></ion-icon></span>
                                                     Shopping & Store</a>
                                             </li>
                                             <li>
-                                                <a href=""><span class="la la-bed bg-info"></span>
+                                                <a href="/khack-san/list"><span class="bg-info"><ion-icon name="bed-outline"></ion-icon></span>
                                                     Hotels</a>
                                             </li>
-                                            <li>
-                                                <a href=""><span class="la la-bank bg-warning"></span> Art
-                                                    & History</a>
-                                            </li>
+
                                         </ul>
                                     </div>
                                 </div>
@@ -180,12 +88,12 @@
                                 <div class="author-area">
                                     <div class="author__access_area">
                                         <ul class="d-flex list-unstyled align-items-center">
-                                            <li>
+                                            {{-- <li>
                                                 <a href="add-listing.html"
                                                     class="btn btn-xs btn-gradient btn-gradient-two">
                                                     <span><ion-icon name="add-outline"></ion-icon></span> Add Listing
                                                 </a>
-                                            </li>
+                                            </li> --}}
                                             <li>
                                                 @if (Auth::guard('customer')->user())
                                                     <a href="/logout" class="access-link">Logout</a>

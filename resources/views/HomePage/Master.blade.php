@@ -6,10 +6,9 @@
 </head>
 
 <body>
-    <section class="listing-details-wrapper bgimage">
-        @include('HomePage.Shared.menu')
-        @yield('title')
-    </section>
+
+     @yield('title')
+
 
     <section class="directory_listiing_detail_area single_area section-bg section-padding-strict">
         @yield('content')

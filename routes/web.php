@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('HomePage.Master');
-});
+Route::get('/', [\App\Http\Controllers\HomePageController::class,'index']);
+Route::get('/search', [\App\Http\Controllers\HomePageController::class,'viewSearch']);
 
-Route::get('/nha-hang-khach-san/{slug}', [\App\Http\Controllers\NhaHangKhachSanController::class,'index']);
+Route::get('/nha-hang-khach-san/detail/{slug}', [\App\Http\Controllers\NhaHangKhachSanController::class,'index']);
+Route::get('/nha-hang/list', [\App\Http\Controllers\NhaHangKhachSanController::class,'listNhaHang']);
+Route::get('/khach-san/list', [\App\Http\Controllers\NhaHangKhachSanController::class,'listKhachSan']);
 Route::post('/nha-hang-khach-san/review', [\App\Http\Controllers\NhaHangKhachSanController::class,'review']);
 
 
@@ -116,6 +117,28 @@ Route::group(['prefix' => '/admin'], function () {
         Route::post('/create',[\App\Http\Controllers\NhaHangKhachSanController::class,'store']);
         Route::post('/update',[\App\Http\Controllers\NhaHangKhachSanController::class,'update']);
         Route::get('/delete/{id}',[\App\Http\Controllers\NhaHangKhachSanController::class,'destroy']);
+    });
+
+    Route::group(['prefix' => '/new'], function () {
+        // Route::get('/',[\App\Http\Controllers\NewsController::class,'index']);
+        // Route::post('/',[\App\Http\Controllers\NewsController::class,'store']);
+
+        Route::get('/',[\App\Http\Controllers\NewsController::class,'index']);
+        Route::post('/',[\App\Http\Controllers\NewsController::class,'storeAjax'])->name('storeNews');
+
+        Route::post('/find/title',[\App\Http\Controllers\NewsController::class,'findTitle']);
+
+        Route::get('/getData',[\App\Http\Controllers\NewsController::class,'showAjax']);
+        Route::get('/delete/{id}',[\App\Http\Controllers\NewsController::class,'destroy']);
+        Route::get('/deleteAjax/{id}',[\App\Http\Controllers\NewsController::class,'destroyAjax']);
+        Route::get('/editAjax/{id}',[\App\Http\Controllers\NewsController::class,'editAjax']);
+        Route::post('/updateAjax',[\App\Http\Controllers\NewsController::class,'updateAjax']);
+
+        Route::get('/changeOpen/{id}',[\App\Http\Controllers\NewsController::class,'changeOpen']);
+
+        Route::get('/edit/{id}',[\App\Http\Controllers\NewsController::class,'edit']);
+        Route::post('/update',[\App\Http\Controllers\NewsController::class,'update']);
+        Route::get('/delete/{id}',[\App\Http\Controllers\NewsController::class,'destroy']);
     });
 });
 
